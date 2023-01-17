@@ -37,7 +37,7 @@ The goal of this project is to teach visitors of the NOTL Museum about the uniqu
 
 ## Timetable
 
-The team has decided to m work in an Agile Environment. Each sprint is divided into two weeks long. 
+The team has decided to work in an Agile Environment. Each sprint is divided into two weeks long. 
 The overall timeline to build this application is 12 weeks. 
 
 ---
