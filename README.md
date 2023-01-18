@@ -21,10 +21,10 @@
 ## Team members
 | Member  | Role  | Student ID  | Student Email | GitHub Email |
 |---|---|---|---|---|
-| Robert Worron  | Software Developer  | 5169057  |  rw11dt@brocku.ca | --- |
-| Nickolas Kenyeres  | Software Developer  | 4445151  | nk09ja@brocku.ca | --- |
+| Robert Worron  | Software Developer  | 5169057  |  rw11dt@brocku.ca | robertworron@hotmail.com |
+| Nickolas Kenyeres  | Software Developer  | 4445151  | nk09ja@brocku.ca | nickolas@knicklabs.com |
 | David Boere  | Software Developer  | 6776348  | db19zj@brocku.ca | davideboere@gmail.com |
-| Mohit Gummaraj Kishore  | SCRUM Master, Software Developer  | 7343429  | mg21bi@brocku.ca | --- |
+| Mohit Gummaraj Kishore  | SCRUM Master, Software Developer  | 7343429  | mg21bi@brocku.ca | gkmohit@gmail.com |
 
 ---
 
