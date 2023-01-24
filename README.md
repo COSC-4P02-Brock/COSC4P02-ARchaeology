@@ -43,7 +43,7 @@ The overall timeline to build this application is 12 weeks.
 
 ---
 
-##Product Backlog
+## Product Backlog
 The product backlog is split into 7 sprints starting from **February 1st, 2023** and ending on **May 1st, 2023**. 
 You can find a link to the product backlog here: [ARchaeology Product Backlog](https://tasks.office.com/brocku.onmicrosoft.com/en-US/Home/Planner/#/plantaskboard?groupId=1781306b-e14a-4f04-8943-1b76f53d8cf0&planId=93-I37y8w0W_QMFTfxsMe2QABqhA)
 
@@ -60,6 +60,7 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 
 ### Notes
 > Sprint 0 is a short sprint to align with the team to discuss on the basic structure of the application. 
+>
 > Sprint 7 is a short sprint to add any final touches to the application based on feedback from the user.
 --- 
 
