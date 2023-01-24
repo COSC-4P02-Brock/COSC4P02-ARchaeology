@@ -49,7 +49,7 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 
 | Sprint | Start Date | End Date | Points | Goals |
 |---|---|---|---|---|
-| 0 | January 24, 2023| January 21, 2023 | TBD | TBD |
+| 0 | January 24, 2023| January 31, 2023 | TBD | TBD |
 | 1 | February 1, 2023| February 13, 2023 | TBD | TBD |
 | 2 | February 14, 2023| February 27, 2023 | TBD | TBD |
 | 3 | February 28, 2023| March 13, 2023 | TBD | TBD |
