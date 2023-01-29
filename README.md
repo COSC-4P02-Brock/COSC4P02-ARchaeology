@@ -66,7 +66,7 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 --- 
 ## Design Files
 
-The design of the mobile application can be found on [Figma Files here]([url](https://www.figma.com/file/PKFogdwxr9WrzklRQm2qf7/ARcheology-App?node-id=0%3A1))
+The design of the mobile application can be found on the following [Figma File](https://www.figma.com/file/PKFogdwxr9WrzklRQm2qf7/ARcheology-App?node-id=0%3A1).
 
 ---
 
