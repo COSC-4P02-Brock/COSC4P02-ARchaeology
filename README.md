@@ -63,6 +63,11 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 >
 > Sprint 7 is a short sprint to add any final touches to the application based on feedback from the user.
 --- 
+## Design Files
+
+
+
+---
 
 ## Team Rules
 - Regular meetings will be held on **Tuesdays at 2:30 PM EST** unless mentioned otherwise. 
