@@ -60,12 +60,15 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 | 7 | April 25, 2023| May 1, 2023 | TBD | TBD |
 
 ### Notes
+>
 > Sprint 0 is a short sprint to align with the team to discuss on the basic structure of the application. 
 >
 > Sprint 7 is a short sprint to add any final touches to the application based on feedback from the user.
 >
 > Project format
+> 
 > **Components**: A component is the smallest section of the app that repeats on other screens. Creating components first will help us put pages together easily. We will not have to repeat our work for another screen.
+> 
 > **Pages**: Once we have all the components ready, we can start building the pages. A page will have one or more components.
 --- 
 ## Design Files
