@@ -6,7 +6,8 @@
 3. [Project Description](project-desctiption)
 4. [Timetable](#timetable)
 5. [Product Backlog](#product-backlog)
-6. [Team Rules](#team-rules)
+6. [Design Files](#design-files)
+7. [Team Rules](#team-rules)
 
 
 ## Introduction
@@ -65,7 +66,7 @@ You can find a link to the product backlog here: [ARchaeology Product Backlog](h
 --- 
 ## Design Files
 
-
+The design of the mobile application can be found on [Figma Files here]([url](https://www.figma.com/file/PKFogdwxr9WrzklRQm2qf7/ARcheology-App?node-id=0%3A1))
 
 ---
 
