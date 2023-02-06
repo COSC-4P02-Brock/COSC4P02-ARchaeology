@@ -1,5 +1,15 @@
 # Architecture
 
+## Overview
+
+Archaeology is a web application using a client-server architecture.
+
+TODO: Add more details once the frontend section is settled. It currently includes a few choices.
+
+## Language
+
+ARchaeology will be developed with TypeScript, HTML, and CSS.
+
 ## Frontend
 
 ### Astro
@@ -31,6 +41,8 @@ The ARchaeology frontend can be built with either Astro or Remix allowing for th
 Astro may provide a slight edge in that we can minimize the amount of JavaScript delivered to the user and decrease time to interactivity without sacrificing developer experience.
 
 Where Astro may have a disadvantage is in the development of features that need to persist across multiple pages. Since Astro replaces entire pages, it would be more difficult to create experiences that should persist between pages, such as having an audio player for listening to a podcast that should continue to play without interruption when navigating between pages. This is an area where SPAs shine; however, this does not seem likely to be an issue for the ARchaelogy app.
+
+Another area where Astro may have an advantage is that is supports hybrid rendering, which would allow for some parts of the site that do not require dynamic content, to be pre-rendered and served straight from the CDN.
 
 ### Tailwind
 
