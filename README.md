@@ -8,6 +8,7 @@
 5. [Product Backlog](#product-backlog)
 6. [Design Files](#design-files)
 7. [Team Rules](#team-rules)
+8. [Documentation](#documentation)
 
 
 ## Introduction
@@ -87,3 +88,9 @@ The design of the mobile application can be found on the following [Figma File](
   -  Sprint Review(TBD)
   -  Sprint Planning(TBD)
   -  Sprint Retrospective(TBD)
+
+---
+
+### Documentation
+
+See [/docs](./docs/README.md)
