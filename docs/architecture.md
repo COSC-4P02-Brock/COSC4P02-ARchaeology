@@ -2,9 +2,43 @@
 
 ## Overview
 
-Archaeology is a web application using a client-server architecture.
+ARchaeology is a web application built with a Jamstack architecture, which separates the business logic and data layer from the web experience layer. See [jamstack.org](https://www.jamstack.org) for more information on this architectural approach.
 
-TODO: Add more details once the frontend section is settled. It currently includes a few choices.
+In the case of ARchaelogy, the web experience is to be implemented in the Astro framework using the React UI library and Tailwind CSS framework. ARchaelogy will be hosted on Vercel and use edge functions (isolated javascript runtimes in a CDN) to server render HTML pages, serve prerendered HTML pages from the CDN, and server other static assets (i.e. scripts, stylesheets, images) from the CDN. This is the separated web experience part of Jamstack.
+
+As per the Jamstack architecture, the business logic and data is composed from third party services via APIs. The business logic will be implemented in Serverless functions in Vercel's data centeres. The data will be stored in a postgresql database managed by the Supabase application development service.
+
+      ┌───────────────────────────────────────────────────┐
+      │                                                   │
+      │   ┌────────────┐                                  │
+      │┌─▶│File storage│      Supabase                    │
+      ││  └────────────┘                                  │
+      ││         ▲                        ┌───────────┐   │
+      ││      ┌──┼───────────────────────▶│ Database  │   │
+      ││      │  │                        └───────────┘   │
+      ││      │  │                              ▲         │
+      ││      │  │                              │         │
+      └┼──────┼──┼──────────────────────────────┼─────────┘
+       └──────┤  │                              │
+              │  └────────────────┐             │
+              │                   ├─────────────┘
+┌─────────────┼───────────────────┼───────────────────────────────┐
+│             │                   │    Vercel                     │
+│             │                   │                               │
+│ ┌──────────────────────┐        │      ┌──────────────────────┐ │
+│ │ Serverless Functions │        │      │ Static File Storage  │ │
+│ └──────────────────────┘        │      └──────────────────────┘ │
+│             ▲           ┌──────────────┐           ▲            │
+│             └───────────│Edge Functions│───────────┤            │
+│                         └──────────────┘           │            │
+│                                 ▲                  │            │
+└─────────────────────────────────┼──────────────────┼────────────┘
+                                  │                  │
+                                  │                  │
+                                  │                  │
+                          ┌──────────────┐           │
+                          │ Web Browser  │───────────┘
+                          └──────────────┘
 
 ## Frontend
 
