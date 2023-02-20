@@ -1,6 +1,13 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: ["@remix-run/eslint-config", "@remix-run/eslint-config/node", "@remix-run/eslint-config/jest-testing-library", "plugin:playwright/playwright-test", "prettier", "plugin:storybook/recommended"],
+  extends: [
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node",
+    "@remix-run/eslint-config/jest-testing-library",
+    "plugin:playwright/playwright-test",
+    "prettier",
+    "plugin:storybook/recommended",
+  ],
   settings: {
     // Using vitest instead of jest but the API
     // is the same so the jest linting settings
@@ -8,7 +15,7 @@ module.exports = {
     // version manually since it cannot be derived
     // from the jest package (which is not installed).
     jest: {
-      version: 28
-    }
-  }
+      version: 28,
+    },
+  },
 };

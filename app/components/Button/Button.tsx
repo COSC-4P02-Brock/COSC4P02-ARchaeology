@@ -1,7 +1,50 @@
+import classNames from "classnames";
+
 interface ButtonProps {
-  children: React.ReactNode;
+  /**
+   * The content of the button.
+   */
+  children?: React.ReactNode;
+
+  /**
+   * Is this the principal call to action on the page?
+   */
+  primary?: boolean;
+
+  /**
+   * How large should the button be?
+   */
+  size?: "small" | "medium" | "large";
+
+  /**
+   * Optional click handler
+   */
+  onClick?: () => void;
 }
 
-export function Button({ children }: ButtonProps) {
-  return <button>{children}</button>;
-}
+/**
+ * Example button component
+ */
+export const Button = ({
+  children,
+  primary = false,
+  size = "medium",
+  ...props
+}: ButtonProps) => {
+  const className = classNames(
+    "inline-flex",
+    "items-center",
+    "justify-center",
+    "rounded",
+    "text-white",
+    primary ? "bg-blue-700" : "bg-gray-700",
+    size === "small" ? "text-sm" : size === "medium" ? "text-md" : "text-lg",
+    size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
+    size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
+  );
+  return (
+    <button type="button" className={className} {...props}>
+      {children ?? ""}
+    </button>
+  );
+};
