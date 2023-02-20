@@ -40,6 +40,7 @@ export const Button = ({
     "transition-colors",
     primary ? "bg-blue-700" : "bg-gray-700",
     primary ? "hover:bg-blue-800" : "hover:bg-gray-800",
+    primary ? "hover:text-blue-100" : "hover:text-gray-100",
     size === "small" ? "text-sm" : size === "medium" ? "text-md" : "text-lg",
     size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
     size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
