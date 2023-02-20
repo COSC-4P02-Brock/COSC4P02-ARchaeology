@@ -2,7 +2,7 @@
 /// <reference types="vite/client" />
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -10,6 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "happy-dom",
+    exclude: [...configDefaults.exclude, "test-e2e/**/*"],
     setupFiles: ["./test/setup-test-env.ts"],
   },
 });
