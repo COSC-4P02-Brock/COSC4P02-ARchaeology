@@ -5,6 +5,7 @@ module.exports = {
     "@remix-run/eslint-config/node",
     "@remix-run/eslint-config/jest-testing-library",
     "plugin:playwright/playwright-test",
+    "plugin:jsx-a11y/recommended",
     "prettier",
     "plugin:storybook/recommended",
   ],
