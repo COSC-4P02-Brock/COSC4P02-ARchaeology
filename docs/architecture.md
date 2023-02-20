@@ -50,17 +50,13 @@ As per the Jamstack architecture, the business logic and data is composed from t
 
 ### Frameworks
 
-#### Astro
+#### Remix
 
-Astro is an open source frontend meta framework that supports creating pre-rendered (static), server rendered (dynamic) and hybrid (static and dynamic) websites and web applications. It produces multi-page applications (MPA), which means that when you navigate to a new page, the browser requests a new page of HTML from the server.
+Remix is an open source frontend meta framework that supportings creating server rendered (dynamic) websites and web applications. It produces single-page applications (SPA), which means that when you navigate to a new page, the applications renders the new page in your browser without making a roundtrip to the server (though it may still make a request to the server for data, additional javascript or css resources, or even partial HTML).
 
-Astro is UI framework agnostic, supporting, React, Vue, Svelte, Solid, and more. It uses an island architecture meaning that the frontend UI components are rendered to static HTML ahead of time and all JavaScript is stripped out, except for regions where interactivity is explicitly preserved. Not only does prerendering or server side rendering reduce the time to first paint and largest contentful paint, but this specific island architecture approach also reduces the JavaScript payload and the time to interactive since only parts of the page require rehydration by the UI framework, with most of the page being static HTML allowing for immediate user interaction. A reduced JavaScript payload is also beneficial for more performance constrained devices, such as mobile phones, which are the target platform for this project.
-
-The ARchaeology frontend being built with Astro allows for the use of a UI framework for component-based development and to support rich interactivity for multimedia features. Support for server side rendering allows for improved SEO, easier handling of authentication, and safer use of databases and other services.
-
-- 🔗 [Website](https://astro.build)
-- 📚 [Documentation](https://docs.astro.build/en/getting-started/)
-- 💻 [Source Code](https://github.com/withastro/astro)
+ - 🔗 [Website](https://remix.run)
+ - 📚 [Documentation](https://remix.run/docs/en/v1)
+ - 💻 [Source Code](https://github.com/remix-run)
 
 #### Tailwind
 
