@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "generate:css": "tailwindcss -o ./app/styles/tailwind.css",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "storybook": "run-p storybook:*",
     "storybook:css": "npm run generate:css -- --watch",
     "storybook:server": "start-storybook -p 6006",
