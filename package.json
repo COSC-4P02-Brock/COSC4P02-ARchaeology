@@ -6,10 +6,20 @@
     "build:remix": "remix build",
     "dev": "run-p dev:*",
     "dev:remix": "cross-env NODE_ENV=development binode --require ./mocks -- @remix-run/dev:remix dev",
+    "format": "prettier --write .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "test": "vitest",
     "test:e2e": "start-server-and-test dev http://localhost:3000 \"playwright test\"",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "validate": "run-p lint typecheck test test:e2e"
   },
+  "prettier": {},
+  "eslintIgnore": [
+    "api",
+    "node_modules",
+    "playwright-report",
+    "public/build"
+  ],
   "dependencies": {
     "@remix-run/node": "^1.13.0",
     "@remix-run/react": "^1.13.0",
@@ -38,9 +48,12 @@
     "c8": "^7.13.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-playwright": "^0.12.0",
     "happy-dom": "^8.6.0",
     "msw": "^1.0.1",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.4",
     "start-server-and-test": "^1.15.4",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.8.4",

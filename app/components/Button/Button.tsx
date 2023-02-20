@@ -1,7 +1,7 @@
 interface ButtonProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function Button({ children }: ButtonProps) {
-  return <button>{ children }</button>
+  return <button>{children}</button>;
 }
