@@ -2,6 +2,7 @@ node_modules
 
 .cache
 .env
+.husky
 .vercel
 .output
 .vscode
