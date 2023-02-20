@@ -36,7 +36,7 @@
 
 ## Project Description
 
-Our Android and iOS app will use the phone's camera to find a QR code within the NOTL Museum, and will give the user a historical look at the item in front of them using AR.
+Our web app will use the phone's camera to find a QR code within the NOTL Museum, and will give the user a historical look at the item in front of them using AR.
 The goal of this project is to teach visitors of the NOTL Museum about the unique history and culture that the Niagara region holds.
 
 ---
