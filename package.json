@@ -15,7 +15,9 @@
     "test:e2e": "start-server-and-test dev http://localhost:3000 \"playwright test\"",
     "typecheck": "tsc",
     "validate": "run-p lint typecheck test test:e2e",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "run-p storybook:*",
+    "storybook:css": "npm run generate:css -- --watch",
+    "storybook:server": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "prettier": {},
@@ -60,6 +62,7 @@
     "babel-loader": "^8.3.0",
     "binode": "^1.0.5",
     "c8": "^7.13.0",
+    "classnames": "^2.3.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.6.0",
