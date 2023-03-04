@@ -9,29 +9,37 @@ export default {
 
 const Template: ComponentStory<typeof Icon> = (args) => <Icon {...args} />;
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 100,
-};
-
-export const Medium = Template.bind({});
-Medium.args = {
-  size: 150,
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 200,
-};
-
 export const AcademicCap = Template.bind({});
 AcademicCap.args = {
-  name: 'app/assets/icons/academic-cap.svg',
-  size: 150,
+  name: 'AcademicCapIcon'
 }
 
 export const Window = Template.bind({});
 Window.args = {
-  name: 'app/assets/icons/window.svg',
+  name: 'WindowIcon'
+}
+
+export const Small = Template.bind({});
+Small.args = {
+  size: 50,
+};
+
+export const Medium = Template.bind({});
+Medium.args = {
+  size: 100,
+};
+
+export const Large = Template.bind({});
+Large.args = {
   size: 150,
+};
+
+export const Red = Template.bind({});
+Red.args = {
+  iconColor: 'red'
+}
+
+export const Green = Template.bind({});
+Green.args = {
+  iconColor: 'green'
 }
