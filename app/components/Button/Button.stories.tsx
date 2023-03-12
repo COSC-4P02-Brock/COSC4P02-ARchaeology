@@ -39,7 +39,7 @@ Link.args = {
 }
 
 export const ExternalLink = Template.bind({});
-Link.args = {
+ExternalLink.args = {
   children: "Visit Google in a new tab",
   href: "https://google.com",
   target: "_blank",
