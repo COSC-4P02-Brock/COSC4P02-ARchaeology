@@ -31,3 +31,16 @@ Small.args = {
   children: "Click me",
   size: "small",
 };
+
+export const Link = Template.bind({});
+Link.args = {
+  children: "Visit Google",
+  href: "https://google.com",
+}
+
+export const ExternalLink = Template.bind({});
+Link.args = {
+  children: "Visit Google in a new tab",
+  href: "https://google.com",
+  target: "_blank",
+}

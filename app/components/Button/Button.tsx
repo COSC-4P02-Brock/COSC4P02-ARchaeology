@@ -1,11 +1,7 @@
 import classNames from "classnames";
+import { createElement } from "react";
 
-interface ButtonProps {
-  /**
-   * The content of the button.
-   */
-  children?: React.ReactNode;
-
+type BaseButtonProps = {
   /**
    * Is this the principal call to action on the page?
    */
@@ -15,22 +11,25 @@ interface ButtonProps {
    * How large should the button be?
    */
   size?: "small" | "medium" | "large";
-
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
 }
 
+type ButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  /**
+   * href will not be passed to the button element if it is present.
+   */
+  href?: string;
+};
+type ButtonLinkProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
 /**
- * Example button component
+ * Button component
  */
 export const Button = ({
-  children,
+  href,
   primary = false,
   size = "medium",
   ...props
-}: ButtonProps) => {
+}: ButtonProps | ButtonLinkProps) => {
   const className = classNames(
     "inline-flex",
     "items-center",
@@ -45,9 +44,13 @@ export const Button = ({
     size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
     size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
   );
-  return (
-    <button type="button" className={className} {...props}>
-      {children ?? ""}
-    </button>
-  );
+
+  const isLink = Boolean(href)
+
+  return createElement(isLink ? "a" : "button", {
+    className,
+    href: isLink ? href : undefined,
+    type: isLink ? undefined : "button",
+    ...props,
+  });
 };
