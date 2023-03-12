@@ -6,4 +6,5 @@ test("has link", async({ page }) => {
   const link = await page.getByTestId("ExampleModel.Link");
 
   await expect(link).toHaveText("View model in AR");
+  await expect(link).toHaveAttribute("href", "/ar/toy_drummer_idle.usdz");
 });
