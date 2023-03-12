@@ -101,3 +101,7 @@ The design of the mobile application can be found on the following [Figma File](
 ### Documentation
 
 See [/docs](./docs/README.md)
+
+### Credits
+
+- [Toy Drummer Idle model](./public/ar/toy_drummer_idle.usdz) used as an example was provided courtesy of [Apple](https://developer.apple.com/augmented-reality/quick-look/).
