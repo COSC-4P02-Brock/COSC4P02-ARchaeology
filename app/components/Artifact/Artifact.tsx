@@ -12,8 +12,11 @@ import { Disclosure, DisclosureContainer } from "../Disclosure";
 import { isMobileDevice } from "../../utils";
 
 type ArtifactProps = {
+  /** Action to add artifact to user's favourite list. */
+  addToFavourites?: () => void;
+
   /** The date/era that the artifact is from. */
-  date: string,
+  date: string;
 
   /** The description. */
   description: string;
@@ -27,6 +30,9 @@ type ArtifactProps = {
   /** Images of the artifact. */
   images: CarouselProps["images"];
 
+  /** The URL to the AR model. */
+  modelUrl: string;
+
   /** The name of the artifact. */
   name: string;
 
@@ -39,10 +45,12 @@ type ArtifactProps = {
  * It also links to an AR object, but only on iPhone and Android devices.
  */
 export const Artifact = ({
+  addToFavourites = () => {},
   date,
   description,
   details,
   images,
+  modelUrl,
   name,
   provenance
 }: ArtifactProps) => {
@@ -70,22 +78,23 @@ export const Artifact = ({
             />
           </div>
 
-          <form className="mt-6">
+          <div className="mt-6">
             <div className="mt-10 flex gap-2">
               <Button
+                disabled={!isMobile}
+                href={modelUrl}
                 primary
                 type="submit"
-                disabled={!isMobile}
               >
                 View in AR{!isMobile && <sup>1</sup>}
               </Button>
 
-              <Button inverse type="button">
+              <Button inverse onClick={addToFavourites} type="button">
                 <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
                 <span className="sr-only">Add to favorites</span>
               </Button>
             </div>
-          </form>
+          </div>
 
           <section aria-labelledby="details-heading" className="mt-12">
             <h2 id="details-heading" className="sr-only">
