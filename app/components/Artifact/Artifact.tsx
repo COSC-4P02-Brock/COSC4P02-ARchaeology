@@ -77,7 +77,7 @@ export const Artifact = ({
                 type="submit"
                 disabled={!isMobile}
               >
-                View in AR
+                View in AR{!isMobile && <sup>1</sup>}
               </Button>
 
               <Button inverse type="button">
@@ -105,6 +105,8 @@ export const Artifact = ({
               </Disclosure>
             </DisclosureContainer>
           </section>
+
+          {!isMobile && <span className="text-xs text-gray-600 mt-1"><sup>1</sup>AR supported on iPhone and Android devices only.</span>}
         </div>
       </div>
     </article>
