@@ -2,10 +2,24 @@ import classNames from "classnames";
 
 interface HeadlineProps {
   /**
+   * The header of the headline.
+   */
+  header?: React.ReactNode;
+
+  /**
    * The content of the headline.
    */
-  children?: React.ReactNode;
+  description?: React.ReactNode;
 
+  /**
+   * The text in the button.
+   */
+  buttonText?: React.ReactNode;
+
+  /**
+   * The link that the button will follow to.
+   */
+  link?: React.ReactNode;
   /**
    * Is this the principal call to action on the page?
    */
@@ -26,7 +40,10 @@ interface HeadlineProps {
  * Example headline component
  */
 export const Headline = ({
-  children,
+  header,
+  description,
+  buttonText,
+  link,
   primary = false,
   size = "medium",
   ...props
@@ -38,16 +55,16 @@ export const Headline = ({
     "rounded",
     "text-white",
     "transition-colors",
-    primary ? "bg-blue-700" : "bg-gray-700",
-    primary ? "hover:bg-blue-800" : "hover:bg-gray-800",
-    primary ? "hover:text-blue-100" : "hover:text-gray-100",
+    primary ? "bg-black" : "bg-blue-700",
+    primary ? "hover:bg-gray-600" : "hover:bg-gray-800",
+    primary ? "hover:text-white " : "hover:text-gray-100",
     size === "small" ? "text-sm" : size === "medium" ? "text-md" : "text-lg",
     size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
     size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
   );
   return (
     <button type="button" className={className} {...props}>
-      {children ?? ""}
+      {header ?? ""}
     </button>
   );
 };
