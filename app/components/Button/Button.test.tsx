@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { Button } from "./Button";
 
@@ -32,6 +33,24 @@ describe("button", () => {
     await expect(button).toHaveClass("bg-blue-700");
   });
 
+  test("Button renders as a medium inverse button", async () => {
+    const text = "Click me";
+    render(<Button inverse>{text}</Button>);
+
+    const button = screen.getByText(text);
+    await expect(button).toHaveClass("text-md");
+    await expect(button).toHaveClass("bg-gray-200");
+  });
+
+  test("Button renders as a medium inverse primary button", async () => {
+    const text = "Click me";
+    render(<Button inverse primary>{text}</Button>);
+
+    const button = screen.getByText(text);
+    await expect(button).toHaveClass("text-md");
+    await expect(button).toHaveClass("bg-blue-200");
+  });
+
   test("Button renders as a small button", async () => {
     const text = "Click me";
     render(<Button size="small">{text}</Button>);
@@ -63,7 +82,7 @@ describe("button", () => {
   
     test("Button renders as an external link", async () => {
       const text = "Visit Google in a new tab";
-      const href = "https://google.com";
+      const href = "https://googl.com";
       render(<Button href={href} target="_blank">{text}</Button>);
       
       const link = screen.getByText(text)
