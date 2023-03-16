@@ -6,6 +6,7 @@ import { useMemo } from "react";
 
 import { Button } from "../Button";
 import { Carousel } from "../Carousel";
+import type { CarouselProps } from "../Carousel/Carousel";
 import { DefinitionList } from "../DefinitionList";
 import { Disclosure, DisclosureContainer } from "../Disclosure";
 import { isMobileDevice } from "../../utils";
@@ -24,19 +25,7 @@ type ArtifactProps = {
   id: number;
 
   /** Images of the artifact. */
-  images: {
-    /** The "alt" attribute for the image tag. */
-    alt: string;
-
-    /** The unique id of the image. */
-    id: number;
-
-    /** The name. */
-    name: string;
-
-    /** The "src" attribute for the image tag. */
-    src: string;
-  }[];
+  images: CarouselProps["images"];
 
   /** The name of the artifact. */
   name: string;

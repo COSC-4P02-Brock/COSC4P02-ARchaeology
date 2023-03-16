@@ -1,7 +1,7 @@
 import { Tab } from "@headlessui/react";
 import classNames from "classnames";
 
-type CarouselProps = {
+export type CarouselProps = {
   images: {
     /** The "alt" attribute for the image tag. */
     alt: string;
