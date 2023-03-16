@@ -105,3 +105,4 @@ See [/docs](./docs/README.md)
 ### Credits
 
 - [Toy Drummer Idle model](./public/ar/toy_drummer_idle.usdz) used as an example was provided courtesy of [Apple](https://developer.apple.com/augmented-reality/quick-look/).
+- Axe images used in examples from [Unsplash](https://unsplash.com/).
