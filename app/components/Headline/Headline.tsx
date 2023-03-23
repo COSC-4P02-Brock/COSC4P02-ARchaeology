@@ -52,8 +52,10 @@ export const Headline = ({
     "inline-flex",
     "items-center",
     "justify-center",
-    "rounded",
+    "rounded-full",
     "text-white",
+    
+    "absolute bottom-0 right-0",
     "transition-colors",
     primary ? "bg-black" : "bg-blue-700",
     primary ? "hover:bg-gray-600" : "hover:bg-gray-800",
@@ -64,18 +66,18 @@ export const Headline = ({
   );
   return (
     
-    <div className="bg-gray-300 rounded">
-      <div className="ml-4 font-weight-bold">
-        <h2 className="sr-only">Headline</h2>
-        <p>{header}</p>
+    <div className="bg-gray-300 rounded grid grid-cols-1 grid-rows-3">
+      <div className="ml-4 font-weight-bold text-2xl">
+        <h1 className="sr-only">Headline</h1>
+        <h1>{header}</h1>
       </div>
       
       <div className="ml-4">
         <h2 className="sr-only">Description</h2>
-        <p>{description}</p>
+        <h2>{description}</h2>
       </div>
 
-      <div className="items-right">
+      <div className="relative">
         <button type="button" className={className} {...props}>
           {buttonText ?? ""}
         </button>
