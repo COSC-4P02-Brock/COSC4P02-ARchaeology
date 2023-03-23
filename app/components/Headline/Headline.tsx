@@ -63,8 +63,25 @@ export const Headline = ({
     size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
   );
   return (
-    <button type="button" className={className} {...props}>
-      {header ?? ""}
-    </button>
+    
+    <div className="bg-gray-300 rounded">
+      <div className="ml-4 font-weight-bold">
+        <h2 className="sr-only">Headline</h2>
+        <p>{header}</p>
+      </div>
+      
+      <div className="ml-4">
+        <h2 className="sr-only">Description</h2>
+        <p>{description}</p>
+      </div>
+
+      <div className="items-right">
+        <button type="button" className={className} {...props}>
+          {buttonText ?? ""}
+        </button>
+      </div>
+
+    </div>
+
   );
 };
