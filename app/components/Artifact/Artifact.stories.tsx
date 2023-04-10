@@ -39,6 +39,8 @@ Default.args = {
       src: "/img/axe3.jpg",
     },
   ],
+  like: () => {},
+  likeCount: 0,
   modelUrl: '/ar/toy_drummer_idle.usdz',
   name: "Axe",
   provenance: "<p>Ullamco ut reprehenderit minim irure dolor commodo ipsum esse pariatur veniam proident fugiat mollit occaecat. Est elit quis cillum ea eu veniam amet est adipisicing. Do ullamco anim velit velit aliqua eu cillum elit do pariatur Lorem. Deserunt dolore adipisicing veniam eiusmod quis dolore excepteur laboris ipsum velit excepteur magna. Cupidatat in labore amet sunt dolore velit. Laboris sit nulla dolore adipisicing quis consectetur cupidatat qui nulla.</p>",
