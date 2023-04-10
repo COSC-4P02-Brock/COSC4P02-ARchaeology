@@ -39,6 +39,7 @@
     "@remix-run/cloudflare-pages": "^1.14.0",
     "@remix-run/react": "^1.14.0",
     "@supabase/supabase-js": "^2.16.0",
+    "@tippyjs/react": "^4.2.6",
     "cross-env": "^7.0.3",
     "isbot": "^3.6.6",
     "react": "^18.2.0",
