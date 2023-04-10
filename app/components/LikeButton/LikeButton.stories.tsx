@@ -22,8 +22,26 @@ OneLike.args = {
   likeCount: 1,
 };
 
-export const ManyLikes = Template.bind({});
-ManyLikes.args = {
+export const TwoLikes = Template.bind({});
+TwoLikes.args = {
+  ...ZeroLikes.args,
+  likeCount: 2,
+};
+
+export const HundredLikes = Template.bind({});
+HundredLikes.args = {
   ...ZeroLikes.args,
   likeCount: 100,
+};
+
+export const ThousandLikes = Template.bind({});
+ThousandLikes.args = {
+  ...ZeroLikes.args,
+  likeCount: 1000,
+};
+
+export const MillionLikes = Template.bind({});
+MillionLikes.args = {
+  ...ZeroLikes.args,
+  likeCount: 1000000,
 };

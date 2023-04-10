@@ -5,6 +5,8 @@ import {
 import { Button } from "../Button";
 import { Tooltip } from "../Tooltip";
 
+import { pluralize as basePluralize } from "../../utils";
+
 export type LikeButtonProps = {
   /** Accessible label. Visible to screen readers only. */
   children: string;
@@ -16,8 +18,10 @@ export type LikeButtonProps = {
   likeCount: number;
 }
 
+const pluralize = basePluralize.bind(null, { plural: 'likes', singular: 'like' });
+
 export const LikeButton = ({ children, like, likeCount }: LikeButtonProps) => (
-  <Tooltip content={`${likeCount} ${likeCount === 1 ? 'like' : 'likes'}`}>
+  <Tooltip content={pluralize(likeCount)}>
     <Button inverse onClick={like} type="button">
       <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
       <span className="sr-only">{children}</span>
