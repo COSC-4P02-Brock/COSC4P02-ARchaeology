@@ -1,17 +1,15 @@
-import {
-  HeartIcon,
-} from '@heroicons/react/24/outline'
 import { useMemo } from "react";
 
 import { Button } from "../Button";
 import { Carousel } from "../Carousel";
-import { Tooltip } from "../Tooltip";
 import type { CarouselProps } from "../Carousel/Carousel";
+import { LikeButton } from "../LikeButton";
+import type { LikeButtonProps } from "../LikeButton";
 import { DefinitionList } from "../DefinitionList";
 import { Disclosure, DisclosureContainer } from "../Disclosure";
 import { isMobileDevice } from "../../utils";
 
-type ArtifactProps = {
+type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
   /** The date/era that the artifact is from. */
   date: string;
 
@@ -26,12 +24,6 @@ type ArtifactProps = {
 
   /** Images of the artifact. */
   images: CarouselProps["images"];
-
-  /** Action to like the artifact. */
-  like: () => void;
-
-  /** The number of times the artifact has been liked. */
-  likeCount: number;
 
   /** The URL to the AR model. */
   modelUrl: string;
@@ -93,12 +85,9 @@ export const Artifact = ({
                 View in AR{!isMobile && <sup>1</sup>}
               </Button>
 
-              <Tooltip content={`${likeCount} ${likeCount === 1 ? 'like' : 'likes'}`}>
-                <Button inverse onClick={like} type="button">
-                  <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                  <span className="sr-only">Like this artifact</span>
-                </Button>
-              </Tooltip>
+              <LikeButton like={like} likeCount={likeCount}>
+                Like this artifact
+              </LikeButton>
             </div>
           </div>
 
