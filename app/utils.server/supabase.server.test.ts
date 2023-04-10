@@ -2,8 +2,8 @@ const TEST_URL = "https://not-so-secret-subdomain.supabase.co";
 const TEST_KEY = "not-so-secret-key";
 
 describe("supabase", () => {
-  let originalSupabaseUrl = process.env.SUPABASE_URL;
-  let originalSupabaseKey = process.env.SUPABASE_KEY;
+  const originalSupabaseUrl = process.env.SUPABASE_URL;
+  const originalSupabaseKey = process.env.SUPABASE_KEY;
 
   afterAll(() => {
     process.env.SUPABASE_URL = originalSupabaseUrl;
