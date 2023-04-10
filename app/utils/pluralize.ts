@@ -5,5 +5,5 @@ export function pluralize({ plural, singular }: {
   /** The singular form of the things. */
   singular: string;
 }, count: number /** The number of things. */) {
-  return `${count.toLocaleString()} ${count === 1 ? singular : plural}`;
+  return `${count.toLocaleString("en-CA")} ${count === 1 ? singular : plural}`;
 }
