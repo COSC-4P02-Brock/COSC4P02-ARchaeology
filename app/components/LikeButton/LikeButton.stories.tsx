@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof LikeButton> = (args) => <LikeButton {...ar
 export const ZeroLikes = Template.bind({});
 ZeroLikes.args = {
   children: "Like me",
-  like: () => {},
+  like: () => undefined,
   likeCount: 0,
 };
 
