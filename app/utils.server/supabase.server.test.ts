@@ -13,7 +13,17 @@ describe("subabase", () => {
     vi.resetModules();
   });
 
-  test("throws an error if SUPABASE_URL is not set", async () => {
+  test("throws an error if SUPABASE_URL env var is not set", async () => {
+    process.env.SUPABASE_URL = "";
+    process.env.SUPABASE_KEY = "notsosecretkey";
+
+    await expect(import("./supabase.server")).rejects.toThrowError();
+  });
+
+  test("throws an error if SUPABASE_KEY env var is not set", async () => {
+    process.env.SUPABASE_URL = "https://notsosecretsubdomain.supabase.co";
+    process.env.SUPABASE_KEY = "";
+
     await expect(import("./supabase.server")).rejects.toThrowError();
   });
 
