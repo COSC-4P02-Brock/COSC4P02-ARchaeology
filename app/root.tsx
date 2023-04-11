@@ -38,8 +38,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <main className="mx-auto max-w-7xl sm:px-6 lg:px-8 py-6 lg:py-8">
+      <body className="flex flex-col min-h-screen">
+        <main className="grow mx-auto max-w-7xl sm:px-6 lg:px-8 py-6 lg:py-8">
           <Outlet />
         </main>
         <Footer currentYear={year.toLocaleString()} siteInfo={MuseumSiteInfo} />
