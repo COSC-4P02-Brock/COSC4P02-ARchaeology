@@ -58,4 +58,12 @@ export class ArtifactService {
       likeCount: artifact.likes.count,
     };
   }
+
+  async likeArtifact(id: number | string) {
+    console.log('likeArtifact', id);
+    const { data, error } = await supabase(this.context).rpc("like_artifact", {
+      artifact_id_to_check: parseInt(id as string, 10),
+    });
+    return { data, error };
+  }
 }
