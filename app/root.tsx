@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import {
   Links,
   LiveReload,
@@ -8,10 +8,15 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { Footer } from "./components";
+import { MuseumSiteInfo } from "./models";
+
 import tailwindStylesheetUrl from "./styles/tailwind.css";
+import tippy from "tippy.js/dist/tippy.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
+  { rel: "stylesheet", href: tippy },
 ];
 
 export const meta: MetaFunction = () => ({
@@ -19,6 +24,9 @@ export const meta: MetaFunction = () => ({
   title: "ARchaeology",
   viewport: "width=device-width,initial-scale=1",
 });
+
+const today = new Date();
+const year = today.getFullYear();
 
 export default function App() {
   return (
@@ -28,7 +36,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <main className="mx-auto max-w-7xl sm:px-6 lg:px-8 py-6 lg:py-8">
+          <Outlet />
+        </main>
+        <Footer currentYear={year.toLocaleString()} siteInfo={MuseumSiteInfo} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
