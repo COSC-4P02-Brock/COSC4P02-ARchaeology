@@ -1,6 +1,8 @@
+import { useState } from "react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
+import { toast } from "react-toastify";
 
 import { Artifact } from "../../components";
 import { ArtifactService } from "../../services.server";
@@ -13,6 +15,8 @@ export const action = async ({ context, request }: ActionArgs) => {
 
   const service = new ArtifactService(context);
   const result = await service.likeArtifact(form.get('id') as string);
+
+
   return json(result);
 }
 
@@ -24,10 +28,23 @@ export const loader = async ({ context, params }: LoaderArgs) => {
 
 export default function ArtifactId() {
   const artifact = useLoaderData<typeof loader>();
-  const fetcher = useFetcher();
 
-  const onLike = () => {
-    fetcher.submit({ action: 'like', id: String(artifact.id) }, { method: 'post' });
+  const [likeCount, setLikeCount] = useState(artifact.likeCount);
+  const [liked, setLiked] = useState(false);
+
+  const onLike = async () => {
+    try {
+      const response = await fetch(`/artifacts/${artifact.id}/like`, { method: 'put' });
+      const result: { error: any } = await response.json();
+      if (result.error) {
+        throw new Error('Error liking artifact');
+      }
+      toast.success("Liked artifact");
+      setLikeCount(likeCount + 1);
+      setLiked(true);
+    } catch (e) {
+      toast.error("Error liking artifact");
+    }
   }
 
   return (
@@ -36,6 +53,6 @@ export default function ArtifactId() {
       id,
       name: caption,
       src: url,
-    }))} like={onLike} modelUrl='' />
+    }))} like={liked ? undefined : onLike} likeCount={likeCount} modelUrl='' />
   )
 }

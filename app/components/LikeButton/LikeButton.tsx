@@ -12,7 +12,7 @@ export type LikeButtonProps = {
   children: string;
 
   /** Action to like the artifact. */
-  like: () => void;
+  like?: () => void;
 
   /** The number of times the artifact has been liked. */
   likeCount: number;
@@ -22,7 +22,7 @@ const pluralize = basePluralize.bind(null, { plural: 'likes', singular: 'like' }
 
 export const LikeButton = ({ children, like, likeCount }: LikeButtonProps) => (
   <Tooltip content={pluralize(likeCount)}>
-    <Button inverse onClick={like} type="button">
+    <Button disabled={typeof like === "undefined"} inverse onClick={like} type="button">
       <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
       <span className="sr-only">{children}</span>
     </Button>

@@ -7,16 +7,19 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { ToastContainer } from "react-toastify";
 
 import { Footer } from "./components";
 import { MuseumSiteInfo } from "./models";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import tippy from "tippy.js/dist/tippy.css";
+import toast from "react-toastify/dist/ReactToastify.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStylesheetUrl },
   { rel: "stylesheet", href: tippy },
+  { rel: "stylesheet", href: toast },
 ];
 
 export const meta: MetaFunction = () => ({
@@ -40,6 +43,7 @@ export default function App() {
           <Outlet />
         </main>
         <Footer currentYear={year.toLocaleString()} siteInfo={MuseumSiteInfo} />
+        <ToastContainer />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
