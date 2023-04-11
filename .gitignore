@@ -1,7 +1,7 @@
 node_modules
 
 .cache
-.env
+.dev.vars
 .husky
 .vercel
 .output

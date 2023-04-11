@@ -16,8 +16,8 @@ type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
   /** The description. */
   description: string;
 
-  /** Additional details, such location and categorization. */
-  details: { [key: string]: string };
+  /** The dimensions of the artifact. */
+  dimensions: string;
 
   /** The unique ID of the artifact. */
   id: number;
@@ -31,8 +31,8 @@ type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
   /** The name of the artifact. */
   name: string;
 
-  /** The provenance. */
-  provenance: string;
+  /** The object id in the museum collection. */
+  objectId: string;
 }
 
 /**
@@ -42,13 +42,13 @@ type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
 export const Artifact = ({
   date,
   description,
-  details,
+  dimensions,
   images,
   like,
   likeCount,
   modelUrl,
   name,
-  provenance
+  objectId,
 }: ArtifactProps) => {
   const isMobile = useMemo(() => isMobileDevice(), [])
 
@@ -101,11 +101,9 @@ export const Artifact = ({
                 <DefinitionList definitions={{
                   Name: name,
                   Date: date,
-                  ...details,
+                  Dimensions: dimensions,
+                  "Object ID": objectId,
                 }} />
-              </Disclosure>
-              <Disclosure title="Provenance">
-                <div className="prose prose-sm" dangerouslySetInnerHTML={{ __html: provenance }} />
               </Disclosure>
             </DisclosureContainer>
           </section>
