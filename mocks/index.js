@@ -1,8 +1,10 @@
 const { setupServer } = require("msw/node");
 
-const server = setupServer();
+const { handlers } = require("./handlers");
 
-server.listen({ onUnhandledRequest: "bypass" });
+const server = setupServer(...handlers);
+
+server.listen({ onUnhandledRequest: "warn" });
 console.info("🔶 Mock server running");
 
 process.once("SIGINT", () => server.close());

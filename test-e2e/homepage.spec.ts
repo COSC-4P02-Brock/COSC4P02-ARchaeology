@@ -8,6 +8,6 @@ test("has title", async ({ page }) => {
 test("get heading", async ({ page }) => {
   await page.goto("/");
 
-  const heading = page.locator("h1");
-  await expect(heading).toHaveText("Welcome to ARchaeology");
+  const heading = page.locator("li");
+  await expect(heading).toHaveText("Musket");
 });
