@@ -30,7 +30,9 @@ in the `artifacts` table when the row is updated. The trigger used the
 `moddatetime` extension.
 
 ```sql
-
+create trigger handle_updated_at before
+update on artifacts for each row
+execute function moddatetime ('updated_at');
 ```
 
 A related table was created for artifact images.
