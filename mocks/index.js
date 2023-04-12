@@ -4,7 +4,7 @@ const { handlers } = require("./handlers");
 
 const server = setupServer(...handlers);
 
-server.listen({ onUnhandledRequest: "warn" });
+server.listen({ onUnhandledRequest: "bypass" });
 console.info("🔶 Mock server running");
 
 process.once("SIGINT", () => server.close());
