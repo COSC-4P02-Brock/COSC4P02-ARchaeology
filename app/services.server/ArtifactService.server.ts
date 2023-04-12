@@ -3,6 +3,11 @@ import { array, number, object, string } from "yup";
 import { supabase } from "../utils.server";
 import type { SupabaseContext } from "../utils.server";
 
+const artifactsSchema = array().of(object({
+  id: number().required(),
+  name: string().required(),
+}));
+
 const artifactSchema = object({
   id: number().required(),
   name: string().required(),
@@ -23,6 +28,19 @@ const artifactSchema = object({
 export class ArtifactService {
   constructor(private context: SupabaseContext) {
     this.context = context;
+  }
+
+  async getArtifacts() {
+    const { data } = await supabase(this.context)
+      .from("artifacts")
+      .select(`
+        id,
+        name
+      `)
+      .order("name", { ascending: true });
+
+    const artifacts = await artifactsSchema.validate(data);
+    return artifacts;
   }
 
   async getArtifact(id: number | string) {
