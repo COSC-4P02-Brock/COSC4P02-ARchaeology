@@ -1,7 +1,25 @@
+import type { LoaderArgs } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+
+import { ArtifactService } from "../services.server";
+
+export const loader = async ({ context }: LoaderArgs) => {
+  const service = new ArtifactService(context);
+  const artifacts = await service.getArtifacts();
+  return json(artifacts);
+}
+
 export default function Index() {
+  const artifacts = useLoaderData<typeof loader>();
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1 className="text-red-500">Welcome to ARchaeology</h1>
-    </div>
-  );
+    <ul>
+      {artifacts.map(({ id, name }) => (
+        <li key={id}>
+          <a className="text-blue-500 hover:underline" href={`/artifacts/${id}`}>{name}</a>
+        </li>
+      ))}
+    </ul>
+  )
 }

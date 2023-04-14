@@ -6,7 +6,7 @@ test("Headline renders correctly", () => {
   const header = "header";
   const desc = "description";
   const buttonText = "Click me!";
-  render(<Headline>{header}</Headline>);
+  render(<Headline header={header} description={desc} buttonText={buttonText}></Headline>);
   expect(screen.getByText(header)).toBeInTheDocument();
   expect(screen.getByText(desc)).toBeInTheDocument();
   expect(screen.getByText(buttonText)).toBeInTheDocument();
