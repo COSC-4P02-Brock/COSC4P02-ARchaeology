@@ -2,7 +2,7 @@ import { json, redirect } from "@remix-run/cloudflare";
 import type { ActionArgs } from "@remix-run/cloudflare";
 import { useActionData, useTransition } from "@remix-run/react";
 
-import { Button, Error, Logo } from "../../components";
+import { Button, Error, Input, Label, Logo } from "../../components";
 
 import { AuthError, AuthService } from "../../services.server";
 import { createSession } from "../../utils.server";
@@ -15,8 +15,6 @@ type SignInFormErrors = {
 
 export async function action({ context, request }: ActionArgs) {
   const errors: SignInFormErrors = {};
-
-  console.log(context);
 
   try {
     const form = await request.formData();
@@ -40,7 +38,7 @@ export async function action({ context, request }: ActionArgs) {
       password as string
     );
     
-    return redirect("/", {
+    return redirect("/admin", {
       headers: {
         "Set-Cookie": await createSession(sessionDetails, context),
       },
@@ -61,7 +59,9 @@ export default function SignIn() {
     <>
       <div className="absolute w-full flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-md">
-          <Logo theme="light" />
+          <a href="/" title="Return to home">
+            <Logo theme="light" />
+          </a>
           <h2 className="mt-8 text-center text-3xl font-bold tracking-tight text-gray-900">Sign In</h2>
         </div>
 
@@ -71,34 +71,28 @@ export default function SignIn() {
 
             <form className="space-y-6" action="#" method="POST">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email address
-                </label>
+                <Label htmlFor="email">Email address</Label>
                 <div className="mt-2">
-                  <input
+                  <Input
                     id="email"
                     name="email"
                     type="email"
                     autoComplete="email"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                   />
                 </div>
                 {errors?.email && <span>{errors.email}</span>}
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
+                <Label htmlFor="password">Password</Label>
                 <div className="mt-2">
-                  <input
+                  <Input
                     id="password"
                     name="password"
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                   />
                 </div>
                 {errors?.password && <span>{errors.password}</span>}

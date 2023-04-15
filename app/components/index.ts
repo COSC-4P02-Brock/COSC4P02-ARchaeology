@@ -1,6 +1,12 @@
+export { AdminFooter } from "./AdminFooter";
+export { AdminHeader } from "./AdminHeader";
 export { Artifact } from "./Artifact";
 export { Button } from "./Button";
 export { Error } from "./Error";
 export { Icon } from "./Icon";
+export { Input } from "./Input";
 export { Footer } from "./Footer";
+export { Label } from "./Label";
 export { Logo } from "./Logo";
+export { PageHeading } from "./PageHeading";
+export { TextArea } from "./TextArea";
