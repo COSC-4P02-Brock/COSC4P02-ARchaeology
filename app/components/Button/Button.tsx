@@ -4,6 +4,11 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent } from "rea
 
 type BaseButtonProps = {
   /**
+   * Is the button block-level?
+   */
+  block?: boolean;
+  
+  /**
    * Is the button disabled?
    */
   disabled?: boolean;
@@ -36,6 +41,7 @@ type ButtonLinkProps = BaseButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>
  * Button component
  */
 export const Button = ({
+  block = false,
   disabled = false,
   href,
   inverse = false,
@@ -56,7 +62,8 @@ export const Button = ({
     primary ? (inverse ? "hover:text-blue-800" : "hover:text-blue-100") : (inverse ? "hover:text-gray-800" : "hover:text-gray-100"),
     size === "small" ? "text-sm" : size === "medium" ? "text-md" : "text-lg",
     size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
-    size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3"
+    size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3",
+    block && 'w-full',
   );
 
   const isLink = Boolean(href)

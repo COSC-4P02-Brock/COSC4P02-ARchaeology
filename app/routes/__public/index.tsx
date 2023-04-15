@@ -2,7 +2,7 @@ import type { LoaderArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 
-import { ArtifactService } from "../services.server";
+import { ArtifactService } from "../../services.server";
 
 export const loader = async ({ context }: LoaderArgs) => {
   const service = new ArtifactService(context);
