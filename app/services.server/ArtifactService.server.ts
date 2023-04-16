@@ -3,6 +3,9 @@ import { array, number, object, string } from "yup";
 import { supabase } from "../utils.server";
 import type { SupabaseContext } from "../utils.server";
 
+/**
+ * The shape of the payload for creating or updating an artifact.
+ */
 type ArtifactPayload = {
   name: string;
   objectId: string;
@@ -11,12 +14,19 @@ type ArtifactPayload = {
   description: string;
 };
 
+/**
+ * The shape of the data returned from the supabase API when fetching artifacts.
+ */
 const artifactsSchema = array().of(object({
   id: number().required(),
   name: string().required(),
   object_id: string().required(),
 }));
 
+/**
+ * The shape of the data returned from the supabase API when fetching an
+ * artifact.
+ */
 const artifactSchema = object({
   id: number().required(),
   name: string().required(),
@@ -34,11 +44,17 @@ const artifactSchema = object({
   }).nullable(),
 })
 
+/**
+ * Service for interacting with artifacts.
+ */
 export class ArtifactService {
   constructor(private context: SupabaseContext) {
     this.context = context;
   }
 
+  /**
+   * Get all artifacts.
+   */
   async getArtifacts() {
     const { data } = await supabase(this.context)
       .from("artifacts")
@@ -60,6 +76,9 @@ export class ArtifactService {
     }));
   }
 
+  /**
+   * Get an artifact by id.
+   */
   async getArtifact(id: number | string) {
     const { data } = await supabase(this.context)
       .from("artifacts")
@@ -94,6 +113,9 @@ export class ArtifactService {
     };
   }
 
+  /**
+   * Likes an artifact by id.
+   */
   async likeArtifact(id: number | string) {
     const { data, error } = await supabase(this.context).rpc("like_artifact", {
       artifact_id_to_check: parseInt(id as string, 10),
@@ -101,6 +123,9 @@ export class ArtifactService {
     return { data, error };
   }
 
+  /**
+   * Updates an artifact by id. Requires a valid access token.
+   */
   async updateArtifact(
     id: number | string,
     {
@@ -125,6 +150,9 @@ export class ArtifactService {
     return { data, error };
   }
 
+  /**
+   * Create an artifact. Requires a valid access token.
+   */
   async createArtifact(
     {
       name,
