@@ -84,4 +84,27 @@ export class ArtifactService {
     });
     return { data, error };
   }
+
+  async updateArtifact(id: number | string, {
+    name,
+    objectId,
+    dimensions,
+    description,
+  }: {
+    name: string;
+    objectId: string;
+    dimensions: string;
+    description: string;
+  }, token: string) {
+    const { data, error } = await supabase(this.context, token)
+      .from("artifacts")
+      .update({
+        name,
+        object_id: objectId,
+        dimensions,
+        description,
+      })
+      .eq("id", id)
+    return { data, error };
+  }
 }
