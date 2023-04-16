@@ -3,9 +3,17 @@ import { array, number, object, string } from "yup";
 import { supabase } from "../utils.server";
 import type { SupabaseContext } from "../utils.server";
 
+type ArtifactPayload = {
+  name: string;
+  objectId: string;
+  dimensions: string;
+  description: string;
+};
+
 const artifactsSchema = array().of(object({
   id: number().required(),
   name: string().required(),
+  object_id: string().required(),
 }));
 
 const artifactSchema = object({
@@ -35,12 +43,20 @@ export class ArtifactService {
       .from("artifacts")
       .select(`
         id,
-        name
+        name,
+        object_id
       `)
       .order("name", { ascending: true });
 
     const artifacts = await artifactsSchema.validate(data);
-    return artifacts;
+    if (!artifacts) {
+      return [];
+    }
+    return artifacts.map(({ id, name, object_id }) => ({
+      id,
+      name,
+      objectId: object_id,
+    }));
   }
 
   async getArtifact(id: number | string) {
@@ -85,17 +101,16 @@ export class ArtifactService {
     return { data, error };
   }
 
-  async updateArtifact(id: number | string, {
-    name,
-    objectId,
-    dimensions,
-    description,
-  }: {
-    name: string;
-    objectId: string;
-    dimensions: string;
-    description: string;
-  }, token: string) {
+  async updateArtifact(
+    id: number | string,
+    {
+      name,
+      objectId,
+      dimensions,
+      description,
+    }: ArtifactPayload,
+    token: string
+  ) {
     const { data, error } = await supabase(this.context, token)
       .from("artifacts")
       .update({
@@ -105,6 +120,26 @@ export class ArtifactService {
         description,
       })
       .eq("id", id)
+    return { data, error };
+  }
+
+  async createArtifact(
+    {
+      name,
+      objectId,
+      dimensions,
+      description
+    }: ArtifactPayload,
+    token: string
+  ) {
+    const { data, error } = await supabase(this.context, token)
+      .from("artifacts")
+      .insert({
+        name,
+        object_id: objectId,
+        dimensions,
+        description,
+      });
     return { data, error };
   }
 }

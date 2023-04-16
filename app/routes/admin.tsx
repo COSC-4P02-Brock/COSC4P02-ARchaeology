@@ -1,6 +1,6 @@
 import { json, redirect } from "@remix-run/cloudflare";
 import type { LoaderArgs } from "@remix-run/cloudflare";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useTransition } from "@remix-run/react";
 
 import { AdminFooter, AdminHeader } from "../components";
 import { MuseumSiteInfo } from "../models";
@@ -20,6 +20,11 @@ export const loader = async ({ context, request }: LoaderArgs) => {
 
 export default function Admin() {
   const { token } = useLoaderData<typeof loader>();
+  const transition = useTransition();
+
+  if (transition.state === "loading") {
+    return null; // Render nothing while we check if the user is signed in.
+  }
 
   return (
     <div className="flex flex-col grow space-y-6">
