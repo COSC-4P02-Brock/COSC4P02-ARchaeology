@@ -16,6 +16,7 @@ import { getToken } from "../../../utils.server";
 type NewFormErrors = {
   name?: string;
   objectId?: string;
+  date?: string;
   dimensions?: string;
   description?: string;
   server?: string;
@@ -33,6 +34,7 @@ export async function action({ context, request }: ActionArgs) {
     const form = await request.formData();
     const name = form.get("name");
     const objectId = form.get("objectId");
+    const date = form.get("date");
     const dimensions = form.get("dimensions");
     const description = form.get("description");
 
@@ -42,6 +44,10 @@ export async function action({ context, request }: ActionArgs) {
 
     if (typeof objectId !== "string" || objectId.length < 1) {
       errors.objectId = "Please enter a valid object ID.";
+    }
+
+    if (typeof date !== "string" || date.length < 1) {
+      errors.date = "Please enter a valid date.";
     }
 
     if (typeof dimensions !== "string" || dimensions.length < 1) {
@@ -58,6 +64,7 @@ export async function action({ context, request }: ActionArgs) {
 
     const { data, error } = await (new ArtifactService(context)).createArtifact(
       {
+        date: date as string,
         name: name as string,
         objectId: objectId as string,
         dimensions: dimensions as string,
@@ -105,6 +112,16 @@ export default function New() {
           <Input
             id="objectId"
             name="objectId"
+            type="text"
+            autoComplete="off"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="date">Date</Label>
+          <Input
+            id="date"
+            name="date"
             type="text"
             autoComplete="off"
             required

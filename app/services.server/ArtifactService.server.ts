@@ -6,6 +6,7 @@ import type { SupabaseContext } from "../utils.server";
 type ArtifactPayload = {
   name: string;
   objectId: string;
+  date: string;
   dimensions: string;
   description: string;
 };
@@ -29,8 +30,8 @@ const artifactSchema = object({
     url: string().required(),
   })).required(),
   likes: object({
-    count: number().required(),
-  }),
+    count: number().optional(),
+  }).nullable(),
 })
 
 export class ArtifactService {
@@ -89,12 +90,11 @@ export class ArtifactService {
         caption: image.caption,
         url: image.url,
       })),
-      likeCount: artifact.likes.count,
+      likeCount: artifact.likes?.count ?? 0,
     };
   }
 
   async likeArtifact(id: number | string) {
-    console.log('likeArtifact', id);
     const { data, error } = await supabase(this.context).rpc("like_artifact", {
       artifact_id_to_check: parseInt(id as string, 10),
     });
@@ -106,6 +106,7 @@ export class ArtifactService {
     {
       name,
       objectId,
+      date,
       dimensions,
       description,
     }: ArtifactPayload,
@@ -116,6 +117,7 @@ export class ArtifactService {
       .update({
         name,
         object_id: objectId,
+        date,
         dimensions,
         description,
       })
@@ -127,6 +129,7 @@ export class ArtifactService {
     {
       name,
       objectId,
+      date,
       dimensions,
       description
     }: ArtifactPayload,
@@ -137,6 +140,7 @@ export class ArtifactService {
       .insert({
         name,
         object_id: objectId,
+        date,
         dimensions,
         description,
       });
