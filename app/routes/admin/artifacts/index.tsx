@@ -1,6 +1,8 @@
 import type { LoaderArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 import { Button, PageHeading } from "../../../components";
 
@@ -13,7 +15,27 @@ export const loader = async ({ context }: LoaderArgs) => {
 }
 
 export default function Artifacts() {
-  const artifacts = useLoaderData<typeof loader>();
+  const allArtifacts = useLoaderData<typeof loader>();
+  const [artifacts, setArtifacts] = useState(allArtifacts);
+
+  async function handleDelete(e: React.MouseEvent<HTMLAnchorElement>, artifactId: number) {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+
+    if (confirm("Are you sure you want to delete this artifact?")) {
+      try {
+        const response = await fetch(url, { method: "delete" });
+        const result: { error: any } = await response.json();
+        if (result.error) {
+          throw new Error('Error deleting artifact');
+        }
+        toast.success("Deleted artifact");
+        setArtifacts(artifacts.filter(({ id }) => id !== artifactId))
+      } catch (e) {
+        toast.error("Sorry! Could not delete artifact");
+      }
+    }
+  }
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -59,6 +81,10 @@ export default function Artifacts() {
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <a href={`/admin/artifacts/edit/${artifact.id}`} className="text-blue-600 hover:text-blue-900">
                           Edit<span className="sr-only">, {artifact.name}</span>
+                        </a>
+                        {' '}
+                        <a href={`/admin/artifacts/delete/${artifact.id}`} className="ml-4 text-red-600 hover:text-red-900" onClick={e => (handleDelete(e, artifact.id))}>
+                          Delete<span className="sr-only">, {artifact.name}</span>
                         </a>
                       </td>
                     </tr>

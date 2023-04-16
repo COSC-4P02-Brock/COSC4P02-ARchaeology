@@ -5,6 +5,7 @@ export { Button } from "./Button";
 export { Error } from "./Error";
 export { Icon } from "./Icon";
 export { Input } from "./Input";
+export { InputError } from "./InputError";
 export { Footer } from "./Footer";
 export { Label } from "./Label";
 export { Logo } from "./Logo";

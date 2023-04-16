@@ -2,7 +2,14 @@ import { json, redirect } from "@remix-run/cloudflare";
 import type { ActionArgs } from "@remix-run/cloudflare";
 import { useActionData, useTransition } from "@remix-run/react";
 
-import { Button, Error, Input, Label, Logo } from "../../components";
+import {
+  Button,
+  Error,
+  Input,
+  InputError,
+  Label,
+  Logo
+} from "../../components";
 
 import { AuthError, AuthService } from "../../services.server";
 import { createSession } from "../../utils.server";
@@ -81,7 +88,7 @@ export default function SignIn() {
                     required
                   />
                 </div>
-                {errors?.email && <span>{errors.email}</span>}
+                <InputError message={errors?.email} />
               </div>
 
               <div>
@@ -95,7 +102,7 @@ export default function SignIn() {
                     required
                   />
                 </div>
-                {errors?.password && <span>{errors.password}</span>}
+                <InputError message={errors?.password} />
               </div>
 
               <div>

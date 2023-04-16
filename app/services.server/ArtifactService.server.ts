@@ -174,4 +174,15 @@ export class ArtifactService {
       });
     return { data, error };
   }
+
+  /**
+   * Deletes an artifact. Requires a valid access token.
+   */
+  async deleteArtifact(id: number | string, token: string) {
+    const { data, error } = await supabase(this.context, token)
+      .from("artifacts")
+      .delete()
+      .eq("id", id);
+    return { data, error };
+  }
 }

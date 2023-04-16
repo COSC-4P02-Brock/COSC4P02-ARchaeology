@@ -2,7 +2,15 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/cloudflare";
 import { json, redirect } from "@remix-run/cloudflare";
 import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
-import { Button, Error, Input, Label, PageHeading, TextArea } from "../../../../components";
+import {
+  Button,
+  Error,
+  Input,
+  InputError,
+  Label,
+  PageHeading,
+  TextArea
+} from "../../../../components";
 import { ArtifactService } from "../../../../services.server";
 import { getToken } from "../../../../utils.server";
 
@@ -45,7 +53,7 @@ export async function action({ context, params, request }: ActionArgs) {
       errors.objectId = "Please enter a valid object ID.";
     }
 
-    if (typeof objectId !== "string" || objectId.length < 1) {
+    if (typeof date !== "string" || date.length < 1) {
       errors.date = "Please enter a valid date.";
     }
 
@@ -109,6 +117,7 @@ export default function Edit() {
             required
             defaultValue={artifact.name}
           />
+          <InputError message={errors?.name} />
         </div>
         <div>
           <Label htmlFor="objectId">Object ID</Label>
@@ -120,6 +129,7 @@ export default function Edit() {
             required
             defaultValue={artifact.objectId}
           />
+          <InputError message={errors?.objectId} />
         </div>
         <div>
           <Label htmlFor="date">Date</Label>
@@ -131,6 +141,7 @@ export default function Edit() {
             required
             defaultValue={artifact.date}
           />
+          <InputError message={errors?.date} />
         </div>
         <div>
           <Label htmlFor="dimensions">Dimensions</Label>
@@ -142,6 +153,7 @@ export default function Edit() {
             required
             defaultValue={artifact.dimensions}
           />
+          <InputError message={errors?.dimensions} />
         </div>
         <div>
           <Label htmlFor="description">Description</Label>
@@ -153,6 +165,7 @@ export default function Edit() {
             defaultValue={artifact.description}
             rows={20}
           />
+          <InputError message={errors?.description} />
         </div>
         <div>
           <Button disabled={transition.state !== "idle"} type="submit">

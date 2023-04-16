@@ -1,11 +1,12 @@
 import type { ActionArgs } from "@remix-run/cloudflare";
 import { json, redirect } from "@remix-run/cloudflare";
-import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
+import { useActionData, useTransition } from "@remix-run/react";
 
 import {
   Button,
   Error,
   Input,
+  InputError,
   Label,
   PageHeading,
   TextArea,
@@ -106,6 +107,7 @@ export default function New() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.name} />
         </div>
         <div>
           <Label htmlFor="name">Object ID</Label>
@@ -116,6 +118,7 @@ export default function New() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.objectId} />
         </div>
         <div>
           <Label htmlFor="date">Date</Label>
@@ -126,6 +129,7 @@ export default function New() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.date} />
         </div>
         <div>
           <Label htmlFor="name">Dimensions</Label>
@@ -136,6 +140,7 @@ export default function New() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.dimensions} />
         </div>
         <div>
           <Label htmlFor="name">Description</Label>
@@ -146,6 +151,7 @@ export default function New() {
             required
             rows={20}
           />
+          <InputError message={errors?.description} />
         </div>
         <div>
           <Button disabled={transition.state !== "idle"} type="submit">
