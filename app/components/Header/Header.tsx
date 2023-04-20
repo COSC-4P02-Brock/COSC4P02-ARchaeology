@@ -25,10 +25,10 @@ export const Header = ({
       </a> </div>
       
 
-      <div className="mt-12 -mb-6 flex justify-center space-x-4 sm:space-x-12">
+      <div className="mt-12 -mb-6 flex justify-right space-x-4 sm:space-x-12">
         {headerMenuLinks.map(({ name, url }) => (
             <div className="pb-6" key={`${name}.${url}`}>
-              <a className="text-sm leading-6 text-gray-300 hover:text-white"
+              <a className="text-sm leading-6 text-black hover:text-grey-300"
                  data-testid="Header.HeaderMenuLink"
                  href={url}
               >
