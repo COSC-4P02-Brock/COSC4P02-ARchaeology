@@ -5,6 +5,9 @@ export interface SiteInfo {
   // The name of the site.
   name: string;
 
+  // The links in the header menu.
+  headerMenuLinks: Link[];
+
   // The links in the footer menu.
   footerMenuLinks: Link[];
 

@@ -11,6 +11,7 @@ type HeaderProps = {
 export const Header = ({
  currentYear,
  siteInfo: {
+   headerMenuLinks,
    name,
    url,
  },
@@ -22,21 +23,19 @@ export const Header = ({
       <div><a href={url} title={`Visit the ${name} website`}>
         <Logo theme="light" />
       </a> </div>
-      <button type="button" className="flex"> ABOUT </button>
-      <button type="button" className="flex"> VISIT </button>
-      <button type="button" className="flex"> SHOP </button>
-      <button type="button" className="flex"> RESEARCH </button>
-      <button type="button" className="flex"> MEMBERS </button>
-      <button type="button" className="flex"> WHAT'S ON </button>
-      <button type="button" className="flex"> BLOG </button>
-      <button type="button" className="flex"> CONTACT </button>
-      <button type="button" className="flex"> DONATE </button>
+      
 
-      <div className="mt-8 border-t border-white/10 pt-8 md:flex md:items-center md:justify-between">
-        
-        <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-          
-        </p>
+      <div className="mt-12 -mb-6 flex justify-center space-x-4 sm:space-x-12">
+        {headerMenuLinks.map(({ name, url }) => (
+            <div className="pb-6" key={`${name}.${url}`}>
+              <a className="text-sm leading-6 text-gray-300 hover:text-white"
+                 data-testid="Header.HeaderMenuLink"
+                 href={url}
+              >
+                {name}
+              </a>
+            </div>
+          ))}
       </div>
     </div>
   </header>
