@@ -4,7 +4,7 @@ import { Header } from "./Header";
 import { MuseumSiteInfo } from "../../models";
 
 export default {
-  title: "Components/Footer",
+  title: "Components/Header",
   component: Header,
 } as ComponentMeta<typeof Header>
 
