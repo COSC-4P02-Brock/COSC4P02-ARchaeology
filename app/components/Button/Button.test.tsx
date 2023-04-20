@@ -67,6 +67,18 @@ describe("button", () => {
     await expect(button).toHaveClass("text-lg");
   });
 
+  test("Button invokes callback on click", async () => {
+    const user = userEvent.setup()
+    const text = "Click me";
+    const callback = vi.fn();
+    render(<Button onClick={callback}>{text}</Button>);
+
+    const button = screen.getByText(text);
+    await user.click(button);
+
+    expect(callback).toHaveBeenCalled();
+  });
+
   describe("link", () => {
     test("Button renders as an internal link", async () => {
       const text = "Visit Google";
@@ -90,6 +102,18 @@ describe("button", () => {
       expect(link.tagName).toEqual("A");
       await expect(link).toHaveAttribute("href", href);
       await expect(link).toHaveAttribute("target", "_blank");
-    })
+    });
+
+    test("Button invokes callback on click", async () => {
+      const text = "Click me";
+      const href = "https://googl.com";
+      const callback = vi.fn();
+      render(<Button href={href} onClick={callback}>{text}</Button>);
+  
+      const button = screen.getByText(text);
+      button.click();
+  
+      expect(callback).toHaveBeenCalled();
+    });
   })
 })

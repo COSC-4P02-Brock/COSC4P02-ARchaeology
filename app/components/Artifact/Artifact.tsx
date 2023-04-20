@@ -1,28 +1,23 @@
-import { Tab } from "@headlessui/react";
-import {
-  HeartIcon,
-} from '@heroicons/react/24/outline'
 import { useMemo } from "react";
 
 import { Button } from "../Button";
 import { Carousel } from "../Carousel";
 import type { CarouselProps } from "../Carousel/Carousel";
+import { LikeButton } from "../LikeButton";
+import type { LikeButtonProps } from "../LikeButton";
 import { DefinitionList } from "../DefinitionList";
 import { Disclosure, DisclosureContainer } from "../Disclosure";
 import { isMobileDevice } from "../../utils";
 
-type ArtifactProps = {
-  /** Action to add artifact to user's favourite list. */
-  addToFavourites?: () => void;
-
+type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
   /** The date/era that the artifact is from. */
   date: string;
 
   /** The description. */
   description: string;
 
-  /** Additional details, such location and categorization. */
-  details: { [key: string]: string };
+  /** The dimensions of the artifact. */
+  dimensions: string;
 
   /** The unique ID of the artifact. */
   id: number;
@@ -36,8 +31,8 @@ type ArtifactProps = {
   /** The name of the artifact. */
   name: string;
 
-  /** The provenance. */
-  provenance: string;
+  /** The object id in the museum collection. */
+  objectId: string;
 }
 
 /**
@@ -45,14 +40,15 @@ type ArtifactProps = {
  * It also links to an AR object, but only on iPhone and Android devices.
  */
 export const Artifact = ({
-  addToFavourites = () => {},
   date,
   description,
-  details,
+  dimensions,
   images,
+  like,
+  likeCount,
   modelUrl,
   name,
-  provenance
+  objectId,
 }: ArtifactProps) => {
   const isMobile = useMemo(() => isMobileDevice(), [])
 
@@ -89,10 +85,9 @@ export const Artifact = ({
                 View in AR{!isMobile && <sup>1</sup>}
               </Button>
 
-              <Button inverse onClick={addToFavourites} type="button">
-                <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                <span className="sr-only">Add to favorites</span>
-              </Button>
+              <LikeButton like={like} likeCount={likeCount}>
+                Like this artifact
+              </LikeButton>
             </div>
           </div>
 
@@ -106,11 +101,9 @@ export const Artifact = ({
                 <DefinitionList definitions={{
                   Name: name,
                   Date: date,
-                  ...details,
+                  Dimensions: dimensions,
+                  "Object ID": objectId,
                 }} />
-              </Disclosure>
-              <Disclosure title="Provenance">
-                <div className="prose prose-sm" dangerouslySetInnerHTML={{ __html: provenance }} />
               </Disclosure>
             </DisclosureContainer>
           </section>
