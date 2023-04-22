@@ -17,6 +17,11 @@ import { createSession, getValidationErrors } from "../../utils.server";
 
 const GENERIC_ERROR_MESSAGE = "Oops. Something went wrong.";
 
+/**
+ * Extract the form data from the request.
+ * @param request The request with form data.
+ * @returns The form data (email and password).
+ */
 async function extractFormData(request: ActionArgs['request']) {
   try {
     const formData = await request.formData();
@@ -40,6 +45,11 @@ async function extractFormData(request: ActionArgs['request']) {
   }
 }
 
+/**
+ * Validate the form data.
+ * @param formData  The form data.
+ * @returns The raw or validated form data and any errors.
+ */
 async function validateFormData(formData: { email: string; password: string }) {
   const formDataSchema = object({
     email: string().email().required(),
@@ -64,6 +74,13 @@ async function validateFormData(formData: { email: string; password: string }) {
   }
 }
 
+/**
+ * Handles submission of form.
+ *
+ * @param context The application context, including configuration.
+ * @param request The request form submission request.
+ * @returns JSON containing the raw or validated form data and any errors.
+ */
 export async function action({ context, request }: ActionArgs) {
   const { formData, serverError } = await extractFormData(request);
   if (serverError) {
@@ -115,6 +132,9 @@ export async function action({ context, request }: ActionArgs) {
   }
 }
 
+/**
+ * Renders the sign-in page with a form that can be submitted to sign in.
+ */
 export default function SignIn() {
   const { data, errors } = useActionData() ?? {};
   const transition = useTransition();
@@ -179,4 +199,4 @@ export default function SignIn() {
       </div>
     </>
   );
-};
+}
