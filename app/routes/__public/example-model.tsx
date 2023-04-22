@@ -1,4 +1,4 @@
-import { Button, Icon } from '../components'
+import { Button } from "../../components";
 
 /**
  * Temporary route to demonstrate hosting an AR model.

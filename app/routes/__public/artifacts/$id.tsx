@@ -4,8 +4,8 @@ import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { toast } from "react-toastify";
 
-import { Artifact } from "../../components";
-import { ArtifactService } from "../../services.server";
+import { Artifact } from "../../../components";
+import { ArtifactService } from "../../../services.server";
 
 export const action = async ({ context, request }: ActionArgs) => {
   const form = await request.formData();
