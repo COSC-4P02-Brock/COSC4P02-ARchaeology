@@ -14,10 +14,13 @@ export default function Index() {
   const artifacts = useLoaderData<typeof loader>();
 
   return (
-    <ul>
-      {artifacts.map(({ id, name }) => (
+    <ul className="space-y-6">
+      {artifacts.map(({ id, image, name }) => (
         <li key={id}>
-          <a className="text-blue-500 hover:underline" href={`/artifacts/${id}`}>{name}</a>
+          <a className="text-blue-500 hover:underline" href={`/artifacts/${id}`}>
+            {image && <img src={image.url} alt={image.caption} />}
+            {name}
+          </a>
         </li>
       ))}
     </ul>

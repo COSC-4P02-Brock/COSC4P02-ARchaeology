@@ -21,6 +21,11 @@ const artifactsSchema = array().of(object({
   id: number().required(),
   name: string().required(),
   object_id: string().required(),
+  artifact_images: array().of(object({
+    id: number().required(),
+    caption: string().required(),
+    url: string().required(),
+  })),
 }));
 
 /**
@@ -61,7 +66,8 @@ export class ArtifactService {
       .select(`
         id,
         name,
-        object_id
+        object_id,
+        artifact_images (id, caption, url)
       `)
       .order("name", { ascending: true });
 
@@ -69,10 +75,11 @@ export class ArtifactService {
     if (!artifacts) {
       return [];
     }
-    return artifacts.map(({ id, name, object_id }) => ({
+    return artifacts.map(({ id, name, object_id, artifact_images = [] }) => ({
       id,
       name,
       objectId: object_id,
+      image: artifact_images.length > 0 ? artifact_images[0] : null,
     }));
   }
 
