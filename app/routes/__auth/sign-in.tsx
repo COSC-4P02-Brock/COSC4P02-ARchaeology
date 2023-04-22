@@ -1,6 +1,7 @@
 import { json, redirect } from "@remix-run/cloudflare";
 import type { ActionArgs } from "@remix-run/cloudflare";
 import { useActionData, useTransition } from "@remix-run/react";
+import { object, string } from "yup";
 
 import {
   Button,
@@ -12,54 +13,110 @@ import {
 } from "../../components";
 
 import { AuthError, AuthService } from "../../services.server";
-import { createSession } from "../../utils.server";
+import { createSession, getValidationErrors } from "../../utils.server";
 
-type SignInFormErrors = {
-  email?: string;
-  password?: string;
-  server?: string;
+const GENERIC_ERROR_MESSAGE = "Oops. Something went wrong.";
+
+async function extractFormData(request: ActionArgs['request']) {
+  try {
+    const formData = await request.formData();
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    return {
+      formData: {
+        email,
+        password
+      },
+      serverError: undefined
+    };
+  } catch (error: unknown) {
+    return {
+      formData: {
+        email: '',
+        password: '',
+      },
+      serverError: GENERIC_ERROR_MESSAGE
+    };
+  }
+}
+
+async function validateFormData(formData: { email: string; password: string }) {
+  const formDataSchema = object({
+    email: string().email().required(),
+    password: string().required(),
+  });
+
+  try {
+    const validatedFormData = await formDataSchema.validate(formData, {
+      abortEarly: false,
+    });
+    return {
+      data: {
+        form: validatedFormData,
+      },
+      errors: {}
+    };
+  } catch (error: unknown) {
+    return {
+      data: { form: formData },
+      errors: { form: getValidationErrors(error) },
+    };
+  }
 }
 
 export async function action({ context, request }: ActionArgs) {
-  const errors: SignInFormErrors = {};
+  const { formData, serverError } = await extractFormData(request);
+  if (serverError) {
+    return json(
+      {
+        data: {
+          form: formData,
+        },
+        errors: {
+          server: serverError,
+        },
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+
+  const { data, errors } = await validateFormData(formData);
+  if (Object.keys(errors).length > 0) {
+    return json({
+      data,
+      errors,
+    }, { status: 422 });
+  }
 
   try {
-    const form = await request.formData();
-    const email = form.get('email');
-    const password = form.get('password');
-
-    if (typeof email !== "string" || !email.match(/.+@.+/)) {
-      errors.email = "Please enter a valid email address.";
-    }
-
-    if (typeof password !== "string" || password.length < 6) {
-      errors.password = "Please enter a valid password.";
-    }
-
-    if (Object.keys(errors).length) {
-      return json(errors, { status: 422 });
-    }
-
     const sessionDetails = await (new AuthService(context)).signIn(
-      email as string,
-      password as string
+      data.form.email,
+      data.form.password
     );
-    
+    const sessionCookie = await createSession(sessionDetails, context);
     return redirect("/admin", {
       headers: {
-        "Set-Cookie": await createSession(sessionDetails, context),
+        "Set-Cookie": sessionCookie,
       },
     });
   } catch (error: unknown) {
-    errors.server = error instanceof AuthError
-      ? (error as AuthError).message
-      : "Oops! Something went wrong. Please try again later.";
-    return json(errors, { status: 500 });
+    return {
+      data: {
+        form: formData,
+      },
+      errors: {
+        server: (error instanceof AuthError)
+          ? (error as AuthError).message
+          : GENERIC_ERROR_MESSAGE,
+      },
+    };
   }
 }
 
 export default function SignIn() {
-  const errors = useActionData();
+  const { data, errors } = useActionData() ?? {};
   const transition = useTransition();
 
   return (
@@ -85,10 +142,11 @@ export default function SignIn() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    defaultValue={data?.form?.email}
                     required
                   />
                 </div>
-                <InputError message={errors?.email} />
+                <InputError message={errors?.form?.email} />
               </div>
 
               <div>
@@ -99,10 +157,11 @@ export default function SignIn() {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    defaultValue={data?.form?.password}
                     required
                   />
                 </div>
-                <InputError message={errors?.password} />
+                <InputError message={errors?.form?.password} />
               </div>
 
               <div>
@@ -111,7 +170,7 @@ export default function SignIn() {
                   disabled={transition.state !== "idle"}
                   type="submit"
                 >
-                  {transition.state !== "idle" ? "Signing in..." : "Sign in"}
+                  {transition.state === "submitting" ? "Signing in..." : "Sign in"}
                 </Button>
               </div>
             </form>
@@ -120,4 +179,4 @@ export default function SignIn() {
       </div>
     </>
   );
-}
+};
