@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavLink } from "@remix-run/react";
 
-import { Button } from "../../Button";
+import { Button } from "../Button";
 
 type SidebarProps = {
   links: Array<{

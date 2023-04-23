@@ -5,7 +5,7 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 
 export default {
-  title: "Admin/Sidebar",
+  title: "components/Sidebar",
   component: Sidebar,
 } as ComponentMeta<typeof Sidebar>;
 

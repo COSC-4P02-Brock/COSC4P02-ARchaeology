@@ -1,14 +1,10 @@
 import { json, redirect } from "@remix-run/cloudflare";
 import type { LoaderArgs } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData, useTransition } from "@remix-run/react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
 import { BuildingLibraryIcon, HomeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { url as gravatarUrl } from "gravatar";
 
-import { AdminFooter, AdminHeader } from "../components";
-import { MuseumSiteInfo } from "../models";
-
-import { Sidebar } from "../components/admin";
+import { Sidebar } from "../components";
 
 import { getTokenAndEmail } from "../utils.server";
 

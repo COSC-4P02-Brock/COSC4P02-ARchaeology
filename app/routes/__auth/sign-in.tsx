@@ -141,12 +141,12 @@ export default function SignIn() {
 
   return (
     <>
-      <div className="absolute w-full flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="absolute w-full flex min-h-full flex-col justify-center py-12 px-6 lg:px-8">
         <div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-md">
           <a href="/" title="Return to home">
-            <Logo theme="light" />
+            <img src="/img/logo-transparent.png" alt="" className="w-64" />
           </a>
-          <h2 className="mt-8 text-center text-3xl font-bold tracking-tight text-gray-900">Sign In</h2>
+          <h2 className="mt-8 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to ARchaeology</h2>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
