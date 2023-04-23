@@ -8,6 +8,8 @@ interface SessionContext {
 }
 
 interface SessionDetails {
+  email: string;
+
   token: string;
 
   expiresAt: string;
@@ -41,6 +43,7 @@ export async function createSession(
   const cookie = getSessionStorageCookie(context);
   const session = await cookie.getSession();
   session.set("token", sessionDetails.token);
+  session.set("email", sessionDetails.email);
 
   return cookie.commitSession(session, {
     maxAge: sessionDetails.expiresIn ?? 60 * 60 * 24 * 7, // 1 week
@@ -58,6 +61,19 @@ export async function getToken(request: Request, context: SessionContext) {
   }
 
   return token;
+}
+
+export async function getTokenAndEmail(request: Request, context: SessionContext) {
+  const cookie = getSessionStorageCookie(context);
+  const session = await cookie.getSession(request.headers.get("Cookie"));
+  const email = await session.get("email");
+  const token = await session.get("token");
+  console.log(token, typeof token);
+  console.log(email, typeof email);
+  return {
+    email: email && typeof email === "string" ? email : "",
+    token: token && typeof token === "string" ? token : null,
+  }
 }
 
 export async function destroySession(request: Request, context: SessionContext) {
