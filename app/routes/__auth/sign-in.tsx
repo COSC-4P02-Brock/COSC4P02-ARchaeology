@@ -187,6 +187,7 @@ export default function SignIn() {
               <div>
                 <Button
                   block
+                  primary
                   disabled={transition.state !== "idle"}
                   type="submit"
                 >
