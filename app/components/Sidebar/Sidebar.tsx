@@ -22,7 +22,7 @@ type SidebarProps = {
 };
 
 export const Sidebar = ({ links, user }: SidebarProps) => (
-  <aside className="bg-slate-100 border-r border-slate-200 h-screen flex flex-col justify-between inset-0 px-2 py-4 w-64">
+  <aside className="bg-slate-100 border-r border-slate-200 h-screen flex flex-col justify-between inset-0 px-2 py-4 w-64 sticky">
     <div>
       <div className="flex flex-col items-center pb-4 mb-4 border-b border-slate-200">
         <img src="/img/logo-transparent.png" width="50%" height="auto" alt="" />

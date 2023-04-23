@@ -77,6 +77,21 @@ export default function Artifact() {
           Description: artifact.description,
         }}
       />
+      <div>
+        <h3 className="text-sm font-light text-gray-500">Images</h3>
+        <ul className="grid grid-cols-4 gap-4 mt-1">
+          {artifact.images.map(image => (
+            <li key={image.id}>
+              <div style={{ backgroundImage: `url(${image.url})`, backgroundSize: "cover", paddingBottom: "62.5%", width: "100%" }} className="border-4 shadow-sm border-slate-200"/>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-1">
+          <Button inverse href={`/admin/artifacts/${artifact.id}/image`}>
+            Add Image
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

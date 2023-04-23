@@ -78,21 +78,21 @@ export default function Artifacts() {
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-slate-500">{artifact.objectId}</td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-slate-500">{artifact.name}</td>
                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex items-center justify-end gap-2">
-                    <Tooltip content="View / Get QR code">
+                    <Tooltip content="Manage QR code and images">
                       <Button href={`/admin/artifacts/${artifact.id}`} size="small" inverse>
                         <EyeIcon className="h-4 w-4" aria-hidden={true} />
-                        <span className="sr-only">View artifact</span>
+                        <span className="sr-only">Manage artifact images and QR code</span>
                       </Button>
                     </Tooltip>
 
-                    <Tooltip content="Edit">
+                    <Tooltip content="Edit record">
                       <Button href={`/admin/artifacts/${artifact.id}/edit`} size="small" inverse>
                         <PencilIcon className="h-4 w-4" aria-hidden={true} />
                         <span className="sr-only">Edit artifact</span>
                       </Button>
                     </Tooltip>
 
-                    <Tooltip content="Delete">
+                    <Tooltip content="Delete artifact">
                       <Button href={`/admin/artifacts/${artifact.id}/delete`} size="small" inverse danger onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleDelete(e, artifact.id)}>
                         <XMarkIcon className="h-4 w-4" aria-hidden={true} />
                         <span className="sr-only">Delete artifact</span>
