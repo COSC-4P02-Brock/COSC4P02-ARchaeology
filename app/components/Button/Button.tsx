@@ -70,7 +70,7 @@ export const Button = ({
     primary && !inverse && "bg-blue-700 text-white hover:bg-blue-800 hover:text-white",
     size === "small" ? "text-sm" : size === "medium" ? "text-md" : "text-lg",
     size === "small" ? "px-2" : size === "medium" ? "px-4" : "px-6",
-    size === "small" ? "py-1" : size === "medium" ? "py-2" : "py-3",
+    size === "small" ? "py-0.5" : size === "medium" ? "py-2" : "py-3",
     block && 'w-full',
     "transition",
     "duration-300",

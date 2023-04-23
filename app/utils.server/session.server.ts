@@ -68,8 +68,6 @@ export async function getTokenAndEmail(request: Request, context: SessionContext
   const session = await cookie.getSession(request.headers.get("Cookie"));
   const email = await session.get("email");
   const token = await session.get("token");
-  console.log(token, typeof token);
-  console.log(email, typeof email);
   return {
     email: email && typeof email === "string" ? email : "",
     token: token && typeof token === "string" ? token : null,

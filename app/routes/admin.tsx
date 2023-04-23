@@ -34,7 +34,7 @@ export default function Admin() {
   // Pass email to sidebar
 
   return (
-    <div className="bg-slate-50 min-h-full">
+    <div className="bg-slate-50 min-h-full flex flex-row">
       <Sidebar
         links={[
           {
@@ -59,10 +59,8 @@ export default function Admin() {
           email,
         }}
       />
-      <main className="ml-64">
-        <div className="p-4">
-          <Outlet context={{ token }} />
-        </div>
+      <main className="p-4 grow">
+        <Outlet context={{ token }} />
       </main>
     </div>
   )

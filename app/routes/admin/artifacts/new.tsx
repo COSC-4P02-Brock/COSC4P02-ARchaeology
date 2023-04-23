@@ -91,11 +91,13 @@ export default function New() {
   const transition = useTransition();
 
   return (
-    <div className="space-y-6">
-      <PageHeading
-        title="Artifact"
-        subtitle="New"
-      />
+    <div className="bg-white rounded-md shadow-sm space-y-6 px-6 py-8">
+      <div className="border-b border-slate-100 pb-4">
+        <PageHeading
+          title="Artifact"
+          subtitle="New"
+        />
+      </div>
       {errors?.server && <Error message={errors?.server} />}
       <form className="space-y-6" method="POST">
         <div>
@@ -154,7 +156,7 @@ export default function New() {
           <InputError message={errors?.description} />
         </div>
         <div>
-          <Button disabled={transition.state !== "idle"} type="submit">
+          <Button primary disabled={transition.state !== "idle"} type="submit">
             {transition.state !== "idle" ? "Creating..." : "Create"}
           </Button>
           {' '}or{' '}

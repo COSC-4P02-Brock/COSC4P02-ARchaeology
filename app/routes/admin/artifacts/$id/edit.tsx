@@ -100,11 +100,13 @@ export default function Edit() {
   const transition = useTransition();
 
   return (
-    <div className="space-y-6">
-      <PageHeading
-        title={`${artifact.name} – ${artifact.objectId}`}
-        subtitle="Edit"
-      />
+    <div className="bg-white rounded-md shadow-sm space-y-6 px-6 py-8">
+      <div className="border-b border-slate-100 pb-4">
+        <PageHeading
+          title={`${artifact.name} – ${artifact.objectId}`}
+          subtitle="Edit"
+        />
+      </div>
       {errors?.server && <Error message={errors?.server} />}
       <form className="space-y-6" method="POST">
         <div>
@@ -168,7 +170,7 @@ export default function Edit() {
           <InputError message={errors?.description} />
         </div>
         <div>
-          <Button disabled={transition.state !== "idle"} type="submit">
+          <Button disabled={transition.state !== "idle"} type="submit" primary>
             {transition.state !== "idle" ? "Updating..." : "Update"}
           </Button>
           {' '}or{' '}
