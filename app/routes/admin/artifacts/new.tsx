@@ -4,7 +4,7 @@ import { useActionData, useTransition } from "@remix-run/react";
 
 import {
   Button,
-  Error,
+  Error as ErrorMessage,
   Input,
   InputError,
   Label,
@@ -79,7 +79,7 @@ export async function action({ context, request }: ActionArgs) {
       return json(errors, { status: 500 });
     }
 
-    return redirect("/admin/artifacts");
+    return (data as any)?.id ? redirect(`/admin/artifacts/${(data as any).id}`) : redirect("/admin/artifacts");
   } catch (error: any) {
     errors.server = "Oops! Something went wrong. Please try again later.";
     return json(errors, { status: 500 });
@@ -91,12 +91,14 @@ export default function New() {
   const transition = useTransition();
 
   return (
-    <div className="space-y-6">
-      <PageHeading
-        title="Artifact"
-        subtitle="New"
-      />
-      {errors?.server && <Error message={errors?.server} />}
+    <div className="bg-white rounded-md shadow-sm space-y-6 px-6 py-8">
+      <div className="border-b border-slate-100 pb-4">
+        <PageHeading
+          title="Artifact"
+          subtitle="New"
+        />
+      </div>
+      {errors?.server && <ErrorMessage message={errors?.server} />}
       <form className="space-y-6" method="POST">
         <div>
           <Label htmlFor="name">Name</Label>
@@ -154,7 +156,7 @@ export default function New() {
           <InputError message={errors?.description} />
         </div>
         <div>
-          <Button disabled={transition.state !== "idle"} type="submit">
+          <Button primary disabled={transition.state !== "idle"} type="submit">
             {transition.state !== "idle" ? "Creating..." : "Create"}
           </Button>
           {' '}or{' '}

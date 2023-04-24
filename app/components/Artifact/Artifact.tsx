@@ -26,7 +26,7 @@ type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
   images: CarouselProps["images"];
 
   /** The URL to the AR model. */
-  modelUrl: string;
+  modelUrl?: string;
 
   /** The name of the artifact. */
   name: string;
@@ -76,14 +76,16 @@ export const Artifact = ({
 
           <div className="mt-6">
             <div className="mt-10 flex gap-2">
-              <Button
-                disabled={!isMobile}
-                href={modelUrl}
-                primary
-                type="submit"
-              >
-                View in AR{!isMobile && <sup>1</sup>}
-              </Button>
+              {modelUrl && (
+                <Button
+                  disabled={!isMobile}
+                  href={modelUrl}
+                  primary
+                  type="submit"
+                >
+                  View in AR{!isMobile && <sup>1</sup>}
+                </Button>
+              )}
 
               <LikeButton like={like} likeCount={likeCount}>
                 Like this artifact
@@ -108,7 +110,7 @@ export const Artifact = ({
             </DisclosureContainer>
           </section>
 
-          {!isMobile && <span className="text-xs text-gray-600 mt-1"><sup>1</sup>AR supported on iPhone and Android devices only.</span>}
+          {modelUrl && !isMobile && <span className="text-xs text-gray-600 mt-1"><sup>1</sup>AR supported on iPhone and Android devices only.</span>}
         </div>
       </div>
     </article>
