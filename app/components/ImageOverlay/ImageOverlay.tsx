@@ -31,8 +31,8 @@ export const ImageOverlay = ({
 
   const overlaytext = classNames(
     "relative",
-    "w-40",
-    "top-32",
+    "w-52",
+    "bottom-14",
     "flex",
     "justify-center",
     "place-content-center",
@@ -45,9 +45,10 @@ export const ImageOverlay = ({
   );
 
   const image = classNames(
-    "absolute",
-    "w-40",
-    "h-40"
+    "relative",
+    "w-52",
+    "h-52",
+    "rounded-md"
   );
   
   return (
