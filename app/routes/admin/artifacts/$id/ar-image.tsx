@@ -4,18 +4,18 @@ import {
   redirect,
   unstable_parseMultipartFormData,
   unstable_createMemoryUploadHandler,
-  unstable_composeUploadHandlers,
+  unstable_composeUploadHandlers
 } from "@remix-run/cloudflare";
 import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
 import {
   Button,
   Error as ErrorMessage,
-  Input,
   InputError,
   Label,
   PageHeading,
 } from "../../../../components";
+
 import { ArtifactService } from "../../../../services.server";
 import { getToken, supabase } from "../../../../utils.server";
 
@@ -31,8 +31,6 @@ export async function loader({ context, params, request }: LoaderArgs) {
 }
 
 type ImageFormErrors = {
-  caption?: string;
-
   image?: string;
 
   server?: string;
@@ -65,7 +63,7 @@ export async function action({ context, params, request }: ActionArgs) {
         SUPABASE_URL: context.SUPABASE_URL as string,
       })
         .storage
-        .from("artifacts")
+        .from("ar_artifacts")
         .upload(
           `artifact-${params.id}-file-${filename}`,
           file
@@ -91,21 +89,40 @@ export async function action({ context, params, request }: ActionArgs) {
 
     const form = await unstable_parseMultipartFormData(request, uploadHandler);
     const artifactId = form.get("artifactId");
-    const caption = form.get("caption");
     const imageUrl = form.get("image");
+    const previousImageUrl = form.get("previousImage");
 
     if (!imageUrl) {
       throw new Error("Unable to upload file");
     }
 
-    const { error } = await (new ArtifactService(context)).addImageToArtifact({
+    const { error } = await (new ArtifactService(context)).addArImageToArtifact({
       artifactId: artifactId as string,
-      caption: caption as string,
-      url: imageUrl as string,
+      url: imageUrl as string
     }, token as string);
 
     if (error) {
       throw new Error("Unable to create record");
+    }
+
+    // Try to delete original image.
+    if (previousImageUrl) {
+      try {
+        const { error } = await supabase({
+          SUPABASE_KEY: context.SERVICE_ROLE_KEY as string,
+          SUPABASE_URL: context.SUPABASE_URL as string,
+        })
+          .storage
+          .from("ar_artifacts")
+          .remove([(previousImageUrl as string).split("/")[0]]);
+        if (error) {
+          throw new Error("Supabase failed to delete image");
+        }
+      } catch (error: any) {
+        // Silently fail. At this point the upload of the new image worked
+        // so this means we have an unused image stored in the storage bucket.
+        console.error(error)
+      }
     }
 
     return redirect(`/admin/artifacts/${params.id as string}`);
@@ -115,7 +132,7 @@ export async function action({ context, params, request }: ActionArgs) {
   }
 }
 
-export default function Image() {
+export default function ArImage() {
   const errors = useActionData();
   const { artifact } = useLoaderData<typeof loader>();
   const transition = useTransition();
@@ -124,28 +141,18 @@ export default function Image() {
     <div className="bg-white rounded-md shadow-sm space-y-6 px-6 py-8">
       <div className="border-b border-slate-100 pb-4">
         <PageHeading
-          title={`${artifact.name} – ${artifact.objectId}`}
-          subtitle="Add image"
+          title={`${artifact.name} - ${artifact.objectId}`}
+          subtitle="Add AR image"
         />
       </div>
       {errors?.server && <ErrorMessage message={errors?.server} />}
       <form className="space-y-6" method="POST" encType="multipart/form-data">
         <input type="hidden" id="artifactId" name="artifactId" value={artifact.id} />
+        <input type="hidden" id="previousImage" name="previousImage" value={artifact.arImage?.url} />
         <div>
-          <Label htmlFor="caption">Caption</Label>
-          <Input
-            id="caption"
-            name="caption"
-            type="text"
-            autoComplete="off"
-            required
-          />
-          <InputError message={errors?.caption} />
-        </div>
-        <div>
-          <Label htmlFor="image">Image</Label><br />
+          <Label htmlFor="image">Image</Label>
           <input
-            accept="image/*"
+            accept="model/vnd.usdz+zip"
             id="image"
             name="image"
             type="file"

@@ -88,7 +88,17 @@ export default function Artifact() {
         </ul>
         <div className="mt-1">
           <Button inverse href={`/admin/artifacts/${artifact.id}/image`}>
-            Add Image
+            Add image
+          </Button>
+        </div>
+      </div>
+      <div>
+        <h3 className="text-sm font-light text-gray-500">3D Content Model</h3>
+        {!artifact.arImage?.url && <p className="text-red-800">Not uploaded</p>}
+        {artifact.arImage?.url && <p className="text-gray-800">{artifact.arImage.url}</p>}
+        <div className="mt-1">
+          <Button inverse href={`/admin/artifacts/${artifact.id}/ar-image`}>
+            Add model
           </Button>
         </div>
       </div>

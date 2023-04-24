@@ -44,6 +44,10 @@ const artifactSchema = object({
     caption: string().required(),
     url: string().required(),
   })).required(),
+  artifact_ar_images: object({
+    id: number().required(),
+    url: string().required(),
+  }).nullable(),
   likes: object({
     count: number().optional(),
   }).nullable(),
@@ -97,6 +101,7 @@ export class ArtifactService {
         dimensions,
         object_id,
         artifact_images (id, caption, url),
+        artifact_ar_images (id, url),
         likes (count)
       `)
       .eq("id", id)
@@ -116,6 +121,7 @@ export class ArtifactService {
         caption: image.caption,
         url: image.url,
       })),
+      arImage: artifact.artifact_ar_images,
       likeCount: artifact.likes?.count ?? 0,
     };
   }
@@ -214,6 +220,22 @@ export class ArtifactService {
         caption,
         url
       });
+    return { data, error };
+  }
+
+  /**
+   * Adds an AR image to an artifact.
+   */
+  async addArImageToArtifact({
+    artifactId: artifact_id,
+    url
+  }: {
+    artifactId: string;
+    url: string;
+  }, token: string) {
+    const { data, error } = await supabase(this.context, token)
+      .from("artifact_ar_images")
+      .upsert({ artifact_id, url }, { onConflict: "artifact_id" });
     return { data, error };
   }
 }
