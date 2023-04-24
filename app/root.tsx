@@ -23,7 +23,7 @@ export const links: LinksFunction = () => [
   {
     rel: "apple-touch-icon",
     sizes: "180x180",
-    href: "/favicon/favicon-180-precomposed.png"
+    href: "/favicon/favicon-512-precomposed.png"
   },
   {
     rel: "icon",
