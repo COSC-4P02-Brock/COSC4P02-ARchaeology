@@ -4,7 +4,7 @@ import { useActionData, useTransition } from "@remix-run/react";
 
 import {
   Button,
-  Error,
+  Error as ErrorMessage,
   Input,
   InputError,
   Label,
@@ -79,7 +79,7 @@ export async function action({ context, request }: ActionArgs) {
       return json(errors, { status: 500 });
     }
 
-    return redirect("/admin/artifacts");
+    return (data as any)?.id ? redirect(`/admin/artifacts/${(data as any).id}`) : redirect("/admin/artifacts");
   } catch (error: any) {
     errors.server = "Oops! Something went wrong. Please try again later.";
     return json(errors, { status: 500 });
@@ -98,7 +98,7 @@ export default function New() {
           subtitle="New"
         />
       </div>
-      {errors?.server && <Error message={errors?.server} />}
+      {errors?.server && <ErrorMessage message={errors?.server} />}
       <form className="space-y-6" method="POST">
         <div>
           <Label htmlFor="name">Name</Label>

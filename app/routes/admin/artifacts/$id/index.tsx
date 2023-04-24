@@ -82,7 +82,7 @@ export default function Artifact() {
         <ul className="grid grid-cols-4 gap-4 mt-1">
           {artifact.images.map(image => (
             <li key={image.id}>
-              <div style={{ backgroundImage: `url(${image.url})`, backgroundSize: "cover", paddingBottom: "62.5%", width: "100%" }} className="border-4 shadow-sm border-slate-200"/>
+              <div style={{ backgroundImage: `url("${image.url}")`, backgroundSize: "cover", paddingBottom: "62.5%", width: "100%" }} className="border-4 shadow-sm border-slate-200"/>
             </li>
           ))}
         </ul>

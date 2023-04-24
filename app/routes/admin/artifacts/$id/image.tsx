@@ -1,10 +1,16 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/cloudflare";
-import { json, redirect } from "@remix-run/cloudflare";
+import type { ActionArgs, LoaderArgs, UploadHandlerPart } from "@remix-run/cloudflare";
+import {
+  json,
+  redirect,
+  unstable_parseMultipartFormData,
+  unstable_createMemoryUploadHandler,
+  unstable_composeUploadHandlers,
+} from "@remix-run/cloudflare";
 import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
 import {
   Button,
-  Error,
+  Error as ErrorMessage,
   Input,
   InputError,
   Label,
@@ -12,7 +18,7 @@ import {
   TextArea,
 } from "../../../../components";
 import { ArtifactService } from "../../../../services.server";
-import { getToken } from "../../../../utils.server";
+import { getToken, supabase } from "../../../../utils.server";
 
 export async function loader({ context, params, request }: LoaderArgs) {
   const service = new ArtifactService(context);
@@ -23,6 +29,91 @@ export async function loader({ context, params, request }: LoaderArgs) {
   }
 
   return json({ artifact });
+}
+
+type ImageFormErrors = {
+  caption?: string;
+
+  image?: string;
+
+  server?: string;
+}
+
+export async function action({ context, params, request }: ActionArgs) {
+  const errors: ImageFormErrors = {};
+
+  try {
+    const token = await getToken(request, context);
+    if (!token) {
+      return redirect("/sign-in");
+    }
+
+    const uploadImageHandler = async ({ contentType, name, data: stream, filename }: UploadHandlerPart) => {
+      if (name !== "image") {
+        return undefined;
+      }
+
+      // Create file from parts
+      const fileData = [];
+      for await (const part of stream) {
+        fileData.push(part);
+      }
+
+      const file = new File(fileData, filename || '', { type: contentType });
+
+      const { data, error } = await supabase({
+        SUPABASE_KEY: context.SERVICE_ROLE_KEY as string,
+        SUPABASE_URL: context.SUPABASE_URL as string,
+      })
+        .storage
+        .from("artifacts")
+        .upload(
+          `artifact-${params.id}-file-${filename}`,
+          file
+        );
+
+      if (error) {
+        return undefined;
+      }
+
+      if (data) {
+        const { data: { publicUrl } } = supabase(context)
+          .storage
+          .from("artifacts")
+          .getPublicUrl(data.path);
+        return publicUrl;
+      }
+    }
+
+    const uploadHandler = unstable_composeUploadHandlers(
+      uploadImageHandler,
+      unstable_createMemoryUploadHandler()
+    );
+
+    const form = await unstable_parseMultipartFormData(request, uploadHandler);
+    const artifactId = form.get("artifactId");
+    const caption = form.get("caption");
+    const imageUrl = form.get("image");
+
+    if (!imageUrl) {
+      throw new Error("Unable to upload file");
+    }
+
+    const { error } = await (new ArtifactService(context)).addImageToArtifact({
+      artifactId: artifactId as string,
+      caption: caption as string,
+      url: imageUrl as string,
+    }, token as string);
+
+    if (error) {
+      throw new Error("Unable to create record");
+    }
+
+    return redirect(`/admin/artifacts/${params.id as string}`);
+  } catch (error: any) {
+    errors.server = "Oops! Something went wrong. Please try again later.";
+    return json(errors, { status: 500 });
+  }
 }
 
 export default function Image() {
@@ -38,7 +129,8 @@ export default function Image() {
           subtitle="Add image"
         />
       </div>
-      <form className="space-y-6" method="POST">
+      {errors?.server && <ErrorMessage message={errors?.server} />}
+      <form className="space-y-6" method="POST" encType="multipart/form-data">
         <input type="hidden" id="artifactId" name="artifactId" value={artifact.id} />
         <div>
           <label htmlFor="caption">Caption</label>
@@ -49,6 +141,7 @@ export default function Image() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.caption} />
         </div>
         <div>
           <label htmlFor="image">Image</label><br />
@@ -60,6 +153,7 @@ export default function Image() {
             autoComplete="off"
             required
           />
+          <InputError message={errors?.image} />
         </div>
         <div>
           <Button disabled={transition.state !== "idle"} type="submit" primary>

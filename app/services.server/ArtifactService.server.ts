@@ -178,7 +178,9 @@ export class ArtifactService {
         date,
         dimensions,
         description,
-      });
+      })
+      .select(`id`)
+      .single()
     return { data, error };
   }
 
@@ -190,6 +192,28 @@ export class ArtifactService {
       .from("artifacts")
       .delete()
       .eq("id", id);
+    return { data, error };
+  }
+
+  /**
+   * Adds an image to an artifact.
+   */
+  async addImageToArtifact({
+    artifactId: artifact_id,
+    caption,
+    url,
+  }: {
+    artifactId: string;
+    caption: string;
+    url: string;
+  }, token: string) {
+    const { data, error } = await supabase(this.context, token)
+      .from("artifact_images")
+      .insert({
+        artifact_id,
+        caption,
+        url
+      });
     return { data, error };
   }
 }

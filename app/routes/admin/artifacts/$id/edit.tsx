@@ -4,7 +4,7 @@ import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
 import {
   Button,
-  Error,
+  Error as ErrorMessage,
   Input,
   InputError,
   Label,
@@ -107,7 +107,7 @@ export default function Edit() {
           subtitle="Edit"
         />
       </div>
-      {errors?.server && <Error message={errors?.server} />}
+      {errors?.server && <ErrorMessage message={errors?.server} />}
       <form className="space-y-6" method="POST">
         <div>
           <Label htmlFor="name">Name</Label>
