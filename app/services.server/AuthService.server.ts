@@ -47,6 +47,7 @@ export class AuthService {
     const signInResponse = await signInResponseSchema.validate(data);
 
     return {
+      email,
       token: signInResponse.session.access_token,
       expiresAt: signInResponse.session.expires_at,
       expiresIn: signInResponse.session.expires_in,

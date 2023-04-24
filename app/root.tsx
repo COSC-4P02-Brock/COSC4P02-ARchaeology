@@ -27,12 +27,12 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   return (
-    <html lang="en" className="bg-gray-50">
+    <html lang="en" className="h-full bg-gray-100">
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="flex flex-col min-h-screen">
+      <body className="h-full">
         <Outlet />
         <ToastContainer />
         <ScrollRestoration />
