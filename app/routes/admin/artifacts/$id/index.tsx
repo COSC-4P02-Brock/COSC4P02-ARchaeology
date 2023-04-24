@@ -94,11 +94,13 @@ export default function Artifact() {
       </div>
       <div>
         <h3 className="text-sm font-light text-gray-500">3D Content Model</h3>
-        {!artifact.arImage?.url && <p className="text-red-800">Not uploaded</p>}
-        {artifact.arImage?.url && <p className="text-gray-800">{artifact.arImage.url}</p>}
+        {!artifact.arImage?.url && <p className="text-red-500">Not uploaded</p>}
+        {artifact.arImage?.url && <a href={artifact.arImage.url} className="text-blue-500 underline">{artifact.arImage.url.split("/")[
+          artifact.arImage.url.split("/").length - 1
+        ]}</a>}
         <div className="mt-1">
-          <Button inverse href={`/admin/artifacts/${artifact.id}/ar-image`}>
-            Add model
+          <Button inverse href={`/admin/artifacts/${artifact.id}/model`}>
+            {artifact.arImage?.url ? "Replace model" : "Add model"}
           </Button>
         </div>
       </div>

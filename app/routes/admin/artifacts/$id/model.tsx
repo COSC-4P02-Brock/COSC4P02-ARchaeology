@@ -102,19 +102,21 @@ export async function action({ context, params, request }: ActionArgs) {
     }, token as string);
 
     if (error) {
+      console.error(error);
       throw new Error("Unable to create record");
     }
 
     // Try to delete original image.
     if (previousImageUrl) {
       try {
+        const urlSegments = (previousImageUrl as string).split("/")
         const { error } = await supabase({
           SUPABASE_KEY: context.SERVICE_ROLE_KEY as string,
           SUPABASE_URL: context.SUPABASE_URL as string,
         })
           .storage
           .from("ar_artifacts")
-          .remove([(previousImageUrl as string).split("/")[0]]);
+          .remove([urlSegments[urlSegments.length - 1]]);
         if (error) {
           throw new Error("Supabase failed to delete image");
         }
@@ -132,7 +134,7 @@ export async function action({ context, params, request }: ActionArgs) {
   }
 }
 
-export default function ArImage() {
+export default function Model() {
   const errors = useActionData();
   const { artifact } = useLoaderData<typeof loader>();
   const transition = useTransition();
