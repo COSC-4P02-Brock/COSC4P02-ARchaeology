@@ -53,6 +53,6 @@ export default function ArtifactId() {
       id,
       name: caption,
       src: url,
-    }))} like={liked ? undefined : onLike} likeCount={likeCount} modelUrl='' />
+    }))} like={liked ? undefined : onLike} likeCount={likeCount} modelUrl={artifact.arImage?.url} />
   )
 }
