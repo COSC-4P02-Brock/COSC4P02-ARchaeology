@@ -7,6 +7,7 @@ import { LikeButton } from "../LikeButton";
 import type { LikeButtonProps } from "../LikeButton";
 import { DefinitionList } from "../DefinitionList";
 import { Disclosure, DisclosureContainer } from "../Disclosure";
+import { Tooltip } from "../Tooltip";
 import { isMobileDevice } from "../../utils";
 
 type ArtifactProps = Pick<LikeButtonProps, "like" | "likeCount"> & {
@@ -52,6 +53,25 @@ export const Artifact = ({
 }: ArtifactProps) => {
   const isMobile = useMemo(() => isMobileDevice(), [])
 
+  let viewInArButton = (
+    <Button
+      disabled={!isMobile}
+      href={modelUrl}
+      primary
+      type="submit"
+    >
+      View in AR
+    </Button>
+  )
+
+  if (!isMobile) {
+    viewInArButton = (
+      <Tooltip content="Available on iOS and Android only">
+        {viewInArButton}
+      </Tooltip>
+    )
+  }
+
   return (
     <article>
       <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
@@ -76,16 +96,7 @@ export const Artifact = ({
 
           <div className="mt-6">
             <div className="mt-10 flex gap-2">
-              {modelUrl && (
-                <Button
-                  disabled={!isMobile}
-                  href={modelUrl}
-                  primary
-                  type="submit"
-                >
-                  View in AR{!isMobile && <sup>1</sup>}
-                </Button>
-              )}
+              {modelUrl && viewInArButton}
 
               <LikeButton like={like} likeCount={likeCount}>
                 Like this artifact
@@ -109,8 +120,6 @@ export const Artifact = ({
               </Disclosure>
             </DisclosureContainer>
           </section>
-
-          {modelUrl && !isMobile && <span className="text-xs text-gray-600 mt-1"><sup>1</sup>AR supported on iPhone and Android devices only.</span>}
         </div>
       </div>
     </article>
