@@ -11,7 +11,7 @@ export default function Layout() {
   return (
     <div className="min-h-full flex flex-col">
       <Header currentYear={year} siteInfo={MuseumSiteInfo}/>
-      <main className="grow w-full mx-auto max-w-7xl sm:px-6 lg:px-8 pb-6 lg:pb-8">
+      <main className="grow w-full mx-auto max-w-7xl px-6 lg:px-8 pb-6 lg:pb-8">
         <Outlet />
       </main>
       <Footer currentYear={year} siteInfo={MuseumSiteInfo} />
