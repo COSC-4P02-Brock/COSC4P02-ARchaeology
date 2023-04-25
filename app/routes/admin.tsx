@@ -23,10 +23,6 @@ export default function Admin() {
   const { email, token } = useLoaderData<typeof loader>();
   const transition = useTransition();
 
-  if (transition.state === "loading") {
-    return null; // Render nothing while we check if the user is signed in.
-  }
-
   // Pass email to sidebar
 
   return (
