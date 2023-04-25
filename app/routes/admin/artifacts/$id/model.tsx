@@ -76,7 +76,7 @@ export async function action({ context, params, request }: ActionArgs) {
       if (data) {
         const { data: { publicUrl } } = supabase(context)
           .storage
-          .from("artifacts")
+          .from("ar_artifacts")
           .getPublicUrl(data.path);
         return publicUrl;
       }
