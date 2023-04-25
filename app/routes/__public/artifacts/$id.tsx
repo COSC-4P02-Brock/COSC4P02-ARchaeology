@@ -4,7 +4,7 @@ import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { toast } from "react-toastify";
 
-import { Artifact } from "../../../components";
+import { Artifact, Breadcrumbs } from "../../../components";
 import { ArtifactService } from "../../../services.server";
 
 export const action = async ({ context, request }: ActionArgs) => {
@@ -48,11 +48,25 @@ export default function ArtifactId() {
   }
 
   return (
-    <Artifact {...artifact} images={artifact.images.map(({ caption, id, url }) => ({
-      alt: caption,
-      id,
-      name: caption,
-      src: url,
-    }))} like={liked ? undefined : onLike} likeCount={likeCount} modelUrl={artifact.arImage?.url} />
+    <>
+      <Breadcrumbs links={[
+        {
+          title: "Artifacts",
+          url: "/",
+        },
+        {
+          title: artifact.name,
+          url: `/artifacts/${artifact.id}`,
+        },
+      ]} />
+      <div className="mt-4">
+        <Artifact {...artifact} images={artifact.images.map(({ caption, id, url }) => ({
+          alt: caption,
+          id,
+          name: caption,
+          src: url,
+        }))} like={liked ? undefined : onLike} likeCount={likeCount} modelUrl={artifact.arImage?.url} />
+      </div>
+    </>
   )
 }
