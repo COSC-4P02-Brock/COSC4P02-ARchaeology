@@ -30,31 +30,35 @@ export const ImageOverlay = ({
   const isValidFile = validExtensions.indexOf(extension) !== -1;
 
   const overlaytext = classNames(
-    "relative",
-    "w-52",
-    "bottom-14",
+    "absolute",
+    "w-full",
+    "bottom-0",
     "flex",
     "justify-center",
     "place-content-center",
     "transform",
+    "bg-opacity-70",
     "bg-black",
-    "bg-opacity-80",
-    "hover:bg-opacity-100",
+    "group-hover:bg-opacity-80",
     "text-white p-4",
-    "rounded-md"
+    "rounded-b-md",
+    "transition",
+    "duration-300",
   );
 
   const image = classNames(
-    "relative",
-    "w-52",
-    "h-52",
-    "rounded-md"
+    "absolute",
+    "w-full",
+    "object-cover",
+    "rounded-md",
+    "top-0",
+    "h-full",
   );
   
   return (
-    <div>
+    <>
       {isValidFile ? (
-        <div>
+        <div className="group relative w-full" style={{ paddingBottom: "62.5%" }}>
           <img src={url} className={image} alt={alt}/>
           <div className={overlaytext}>
             <p>{text}</p>
@@ -68,6 +72,6 @@ export const ImageOverlay = ({
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 };

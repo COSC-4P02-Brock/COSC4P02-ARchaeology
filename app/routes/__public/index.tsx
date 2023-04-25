@@ -1,7 +1,7 @@
 import type { LoaderArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
-import { ImageOverlay } from "~/components/ImageOverlay";
+import { Breadcrumbs, ImageOverlay } from "~/components";
 
 import { ArtifactService } from "../../services.server";
 
@@ -15,14 +15,22 @@ export default function Index() {
   const artifacts = useLoaderData<typeof loader>();
 
   return (
-    <ul className="grid grid-cols-4 justify-center place-items-center">
-      {artifacts.map(({ id, image, name }) => (
-        <li key={id}>
-          <a className="text-blue-500" href={`/artifacts/${id}`}>
-            <ImageOverlay url={image?.url ?? ""} text={name} alt={image?.caption ?? ""}/>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <Breadcrumbs links={[
+        {
+          title: "Artifacts",
+          url: "/",
+        },
+      ]} />
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center place-items-center mt-4">
+        {artifacts.map(({ id, image, name }) => (
+          <li className="block w-full" key={id}>
+            <a className="block text-blue-500" href={`/artifacts/${id}`}>
+              <ImageOverlay url={image?.url ?? ""} text={name} alt={image?.caption ?? ""}/>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

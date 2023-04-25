@@ -16,27 +16,28 @@ export const Header = ({
    url,
  },
 }: HeaderProps) => (
-  <header className="" aria-labelledby="header-heading">
+  <header aria-labelledby="header-heading">
     <h2 id="header-heading" className="sr-only">Header</h2>
 
-    <div className="mt-4 ml-4 mr-4 grid grid-cols-2 grid-rows-1">
-      <div><a href={url} title={`Visit the ${name} website`}>
-        <Logo theme="light" />
-      </a> </div>
-      
+    <div className="mx-auto max-w-7xl px-6 lg:px-8 py-4">
+      <nav className="flex items-center justify-between w-100">
+        <a href={url} title={`Visit the ${name} website`}>
+          <Logo theme="light" />
+        </a>
 
-      <div className="flex justify-end mt-12 mb-6 space-x-4 sm:space-x-12">
-        {headerMenuLinks.map(({ name, url }) => (
-            <div className="pb-6" key={`${name}.${url}`}>
-              <a className="text-lg leading-6 text-black hover:text-red-700"
-                 data-testid="Header.HeaderMenuLink"
-                 href={url}
-              >
-                {name}
-              </a>
-            </div>
-          ))}
-      </div>
+        <ul className="flex space-x-4 lg:space-x-6 xl:space-x-8">
+          {headerMenuLinks.map(({ name, url }) => (
+              <li className="pb-6" key={`${name}.${url}`}>
+                <a className="text-lg leading-6 text-black hover:text-red-700"
+                   data-testid="Header.HeaderMenuLink"
+                   href={url}
+                >
+                  {name}
+                </a>
+              </li>
+            ))}
+        </ul>
+      </nav>
     </div>
   </header>
 )
