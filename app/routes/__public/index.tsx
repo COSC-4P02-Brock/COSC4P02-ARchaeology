@@ -19,7 +19,7 @@ export default function Index() {
       {artifacts.map(({ id, image, name }) => (
         <li key={id}>
           <a className="text-blue-500" href={`/artifacts/${id}`}>
-            <ImageOverlay url={image.url} text={name} alt={image.caption}/>
+            <ImageOverlay url={image?.url ?? ""} text={name} alt={image?.caption ?? ""}/>
           </a>
         </li>
       ))}
