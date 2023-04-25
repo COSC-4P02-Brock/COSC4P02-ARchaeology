@@ -1,4 +1,5 @@
 export { Artifact } from "./Artifact";
+export { Breadcrumbs } from "./Breadcrumbs";
 export { Button } from "./Button";
 export { Carousel } from "./Carousel";
 export { DefinitionList } from "./DefinitionList";
