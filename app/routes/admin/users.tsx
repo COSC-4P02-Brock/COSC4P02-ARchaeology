@@ -32,7 +32,7 @@ export default function Users() {
         users.
       </Warning>
       <div className="mt-8 flow-root">
-        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+        <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
           <table className="min-w-full divide-y divide-slate-300">
             <thead className="bg-slate-50">
               <tr>

@@ -51,7 +51,7 @@ export default function Admin() {
           email,
         }}
       />
-      <main className="p-4 grow">
+      <main className="p-4 flex-1 overflow-hidden">
         <Outlet context={{ token }} />
       </main>
     </div>

@@ -5,7 +5,7 @@ import { Button, Warning } from "../../components";
 export default function Admin() {
   return (
     <>
-      <div className="text-center pt-12 w-8/12 mx-auto">
+      <div className="text-center pt-12 md:w-8/12 mx-auto">
         <h2 className="text-3xl font-bold tracking-tight text-slate-900">
           Welcome to ARchaeology
         </h2>
@@ -14,7 +14,7 @@ export default function Admin() {
           3D images for augmented reality exhibits.
         </p>
       </div>
-      <ul className="mx-auto mt-20 grid max-w-2xl grid-cols-2">
+      <ul className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-6 md:grid-cols-2">
         <li className="block group text-slate-400 text-center px-6">
           <div className="w-40 h-40 mx-auto inline-flex items-center justify-center p-8 bg-slate-100 rounded-full">
             <BuildingLibraryIcon className="h-full w-full" />
