@@ -2,19 +2,20 @@ import { useMemo } from 'react'
 import { getFillClassNames } from './Logo.utils'
 
 type LogoProps = {
+  className?: string;
+
   theme: 'light' | 'dark';
 }
 
-export const Logo = ({ theme }: LogoProps) => {
+export const Logo = ({ className="h-32", theme }: LogoProps) => {
   const fillClassNames = useMemo(() => getFillClassNames(theme), [theme])
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          xmlnsXlink="http://www.w3.org/1999/xlink"
-         width="243.333"
-         height="155.919"
          viewBox="0 0 243.333 155.919"
          data-testid={`Logo.${theme}Theme`}
+         className={className}
     >
       <defs>
         <clipPath id="a">
